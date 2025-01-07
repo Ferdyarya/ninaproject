@@ -12,7 +12,7 @@ class Perjalanan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nosurat','id_daerah','id_pegawai','deskripsi','perihal','tanggal'
+        'nosurat','id_daerah','id_pegawai','deskripsi','perihal','tanggal','status'
     ];
 
     public function masterdaerah()

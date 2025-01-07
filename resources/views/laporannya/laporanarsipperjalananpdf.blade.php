@@ -77,7 +77,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Pengajuan Diverifikasi</h5>
+        <h5 class="mt-4">Rekap Laporan Surat Diarsipkan</h5>
     </center>
 
 
@@ -89,10 +89,12 @@
             <tr>
                 <th class="px-6 py-2">No</th>
                 <th class="px-6 py-2">Nomor Surat</th>
-                <th class="px-6 py-2">Tanggal</th>
-                <th class="px-6 py-2">Daerah</th>
-                <th class="px-6 py-2">Nominal</th>
-                <th class="px-6 py-2">Keperluan</th>
+                <th class="px-6 py-2">Tanggal laporanperjalanan</th>
+                <th class="px-6 py-2">Arah Tujuan</th>
+                <th class="px-6 py-2">Alamat Tujuan</th>
+                <th class="px-6 py-2">Pegawai Berangkat</th>
+                <th class="px-6 py-2">Deskripsi</th>
+                <th class="px-6 py-2">Perihal</th>
                 <th class="px-6 py-2">Status</th>
             </tr>
         </thead>
@@ -101,19 +103,21 @@
             $grandTotal = 0;
             @endphp --}}
 
-            @foreach ($laporanpengajuan as $item)
+            @foreach ($laporanarsipperjalanan as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
                     <td class="px-6 py-2">{{ $item->nosurat }}</td>
                     <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                     <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
-                    <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
-                    <td class="px-6 py-2">{{ $item->keperluan }}</td>
+                    <td class="px-6 py-2">{{ $item->masterdaerah->alamat }}</td>
+                    <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
+                    <td class="px-6 py-2">{{ $item->deskripsi }}</td>
+                    <td class="px-6 py-2">{{ $item->perihal }}</td>
                     <td class="px-6 py-2">
-                        @if($item->status == 'Terverifikasi')
-                            <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
+                        @if($item->status == 'Arsipkan')
+                            <span class="p-2 mb-2 bg-success text-black rounded">Arsipkan</span>
                         @elseif($item->status == 'Ditolak')
-                            <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                            <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
                         @endif
                     </td>
                 </tr>

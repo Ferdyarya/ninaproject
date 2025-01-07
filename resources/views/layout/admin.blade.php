@@ -90,11 +90,19 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('suratarsip') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-mail"></i>
                         </span>
                         <span class="hide-menu">Arsip Surat perjalanan dinas</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('pengajuan.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-mail"></i>
+                        </span>
+                        <span class="hide-menu">Surat Dinas Pengajuan Dana</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -105,14 +113,7 @@
                         <span class="hide-menu">Surat Dinas Pendapatan Daerah</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-mail"></i>
-                        </span>
-                        <span class="hide-menu">Surat Dinas Pengajuan Dana</span>
-                    </a>
-                </li>
+
 
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('suratdisposisi.index') }}" aria-expanded="false">
@@ -136,7 +137,7 @@
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="/" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('laporanarsipperjalanan') }}" aria-expanded="false">
                       <span>
                         <i class="ti ti-report"></i>
                       </span>
@@ -152,7 +153,7 @@
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="/" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('laporanpengajuan') }}" aria-expanded="false">
                       <span>
                         <i class="ti ti-report"></i>
                       </span>
@@ -160,7 +161,7 @@
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="/" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('suratverif')}}" aria-expanded="false">
                       <span>
                         <i class="ti ti-report"></i>
                       </span>

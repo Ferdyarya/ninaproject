@@ -54,6 +54,7 @@
                                 <th class="px-6 py-2">Pegawai Berangkat</th>
                                 <th class="px-6 py-2">Deskripsi</th>
                                 <th class="px-6 py-2">Perihal</th>
+                                <th class="px-6 py-2">Status</th>
                                 <th class="px-6 py-2">Action</th>
                             </tr>
                         </thead>
@@ -71,6 +72,21 @@
                                 <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
                                 <td class="px-6 py-2">{{ $item->deskripsi }}</td>
                                 <td class="px-6 py-2">{{ $item->perihal }}</td>
+                                <td class="px-6 py-2">
+                                    <!-- Menampilkan status jika sudah Arsipkan -->
+                                    @if($item->status == 'Arsipkan')
+                                        <span class="p-2 mb-2 bg-success text-black rounded">Arsipkan</span>
+                                    @else
+                                        <!-- Form untuk mengubah status menjadi Arsipkan -->
+                                        <form action="{{ route('updateStatusperjalanan', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-warning btn-sm">
+                                                Arsipkan
+                                            </button>
+                                        </form>
+                                    @endif
+                                </td>
                                 <td class="px-6 py-2">
                                     <a href="{{ route('perjalanan.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                     <form action="{{ route('perjalanan.destroy', $item->id) }}" method="POST" style="display:inline;">

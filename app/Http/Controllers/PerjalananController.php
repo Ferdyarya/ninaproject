@@ -122,48 +122,92 @@ class PerjalananController extends Controller
         $perjalanan->delete();
         return redirect()->route('perjalanan.index')->with('success', 'Data Telah dihapus');
     }
+    // Tampilan Surat Arsip
+    public function suratArsip(Request $request)
+{
+    // Cek apakah ada query search
+    $search = $request->get('search');
 
-    //Surat Masuk
-//     public function suratMasuk(Request $request)
-//     {
-//         // Cek apakah ada query search
-//         $search = $request->get('search');
+    // Ambil data surat disposisi dengan pencarian (jika ada) dan status 'Arsipkan' atau 'Tidak Diarsipkan'
+    $perjalanan = Perjalanan::when($search, function ($query) use ($search) {
+        return $query->where('nmrsurat', 'like', '%' . $search . '%')
+                     ->orWhere('id_masterdaerah', 'like', '%' . $search . '%')
+                     ->orWhere('perihal', 'like', '%' . $search . '%');
+    })
+    ->whereIn('status', ['Arsipkan', 'Tidak Diarsipkan']) // Pastikan menampilkan status Arsipkan dan Tidak Diarsipkan
+    ->paginate(10); // Menampilkan 10 data per halaman
 
-//         // Ambil data surat disposisi dengan pencarian (jika ada)
-//         $perjalanan = Perjalanan::when($search, function ($query) use ($search) {
-//             return $query->where('nosurat', 'like', '%' . $search . '%')
-//                          ->orWhere('id_mastercabang', 'like', '%' . $search . '%')
-//                          ->orWhere('perihal', 'like', '%' . $search . '%');
-//         })->paginate(10); // Menampilkan 10 data per halaman
+    // Mengirim data ke view
+    return view('perjalanan.suratarsip', compact('perjalanan'));
+}
 
-//         // Mengirim data ke view
-//         return view('perjalanan.suratmasuk', compact('perjalanan'));
-//     }
+public function updateStatus(Request $request, $id)
+{
+    // Validasi status
+    // $validated = $request->validate([
+    //     'status' => 'required|in:Arsipkan,Tidak Diarsipkan',
+    // ]);
 
-//     // Function untuk melakukan verifikasi surat disposisi
-//     public function updateStatus(Request $request, $id)
-// {
-//     // Validate the incoming request to ensure a valid status is selected
-//     $validated = $request->validate([
-//         'status' => 'required|in:Terverifikasi,Ditolak', // Validating that status is either 'Terverifikasi' or 'Ditolak'
-//     ]);
+    $perjalanan = Perjalanan::findOrFail($id);
 
-//     // Find the Perjalanan entry by ID
-//     $perjalanan = Perjalanan::findOrFail($id);
+    // Update status
+    $perjalanan->status = "Arsipkan";
+    $perjalanan->save(); // Simpan perubahan
 
-//     // Update the status based on the form input
-//     $perjalanan->status = $validated['status'];
-//     $perjalanan->save();
+    return redirect()->route('suratarsip')->with('success', 'Status surat berhasil diperbarui.');
+}
 
-//     // Redirect back to the suratmasuk page with a success message
-//     return redirect()->route('suratmasuk')->with('success', 'Status surat berhasil diperbarui.');
-// }
+// Laporan Buku Perjalanan Filter
+public function cetakarsipertanggal()
+{
+    // Query Perjalanan with pagination and return to the view
+    $perjalanan = Perjalanan::paginate(10);
 
+    return view('laporannya.laporanarsipperjalanan', ['laporanarsipperjalanan' => $perjalanan]);
+}
 
+public function filterdatearsip(Request $request)
+{
+    // Get start and end dates from the request
+    $startDate = $request->input('dari');
+    $endDate = $request->input('sampai');
 
+    // If both dates are empty, show all records
+    if (empty($startDate) && empty($endDate)) {
+        $laporanarsipperjalanan = Perjalanan::paginate(10);
+    } else {
+        // Filter Perjalanan records based on the dates
+        $laporanarsipperjalanan = Perjalanan::whereDate('tanggal', '>=', $startDate)
+                                        ->whereDate('tanggal', '<=', $endDate)
+                                        ->paginate(10);
+    }
 
+    // Store the filter dates in the session for later use
+    session(['filter_start_date' => $startDate, 'filter_end_date' => $endDate]);
 
+    return view('laporannya.laporanarsipperjalanan', compact('laporanarsipperjalanan'));
+}
 
+public function laporanarsipperjalananpdf(Request $request)
+{
+    // Retrieve the filter dates from the request
+    $startDate = $request->dari;
+    $endDate = $request->sampai;
+
+    // If no date filters are provided, return all records
+    if (empty($startDate) || empty($endDate)) {
+        $laporanarsipperjalanan = Perjalanan::all();
+    } else {
+        // Filter the records based on the requested dates
+        $laporanarsipperjalanan = Perjalanan::whereDate('tanggal', '>=', $startDate)
+                                            ->whereDate('tanggal', '<=', $endDate)
+                                            ->get();
+    }
+
+    // Generate PDF and return the download response
+    $pdf = PDF::loadView('laporannya.laporanarsipperjalananpdf', compact('laporanarsipperjalanan'));
+    return $pdf->download('laporan_arsip_perjalanan.pdf');
+}
 
 
 

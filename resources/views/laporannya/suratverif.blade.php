@@ -50,10 +50,10 @@
                             <tr>
                                 <th class="px-6 py-2">No</th>
                                 <th class="px-6 py-2">Nomor Surat</th>
-                                <th class="px-6 py-2">Tanggal Terima</th>
-                                <th class="px-6 py-2">Asal Surat</th>
-                                <th class="px-6 py-2">Perihal Surat</th>
-                                <th class="px-6 py-2">Disposisi</th>
+                                <th class="px-6 py-2">Tanggal</th>
+                                <th class="px-6 py-2">Daerah</th>
+                                <th class="px-6 py-2">Nominal</th>
+                                <th class="px-6 py-2">Keperluan</th>
                                 <th class="px-6 py-2">Status</th>
                                 {{-- <th class="px-6 py-2">Action</th> --}}
                             </tr>
@@ -62,14 +62,14 @@
                             @php
                             $no = 1;
                             @endphp
-                            @foreach ($suratdisposisi as $index => $item)
+                            @foreach ($pengajuan as $index => $item)
                             <tr>
-                                <th class="px-6 py-2">{{ $index + $suratdisposisi->firstItem() }}</th>
-                                <td class="px-6 py-2">{{ $item->nmrsurat }}</td>
-                                <td class="px-6 py-2">{{ $item->tglterima }}</td>
-                                <td class="px-6 py-2">{{ $item->mastercabang->cabang }}</td>
-                                <td class="px-6 py-2">{{ $item->perihal }}</td>
-                                <td class="px-6 py-2">{{ $item->disposisi }}</td>
+                                <th class="px-6 py-2">{{ $index + $pengajuan->firstItem() }}</th>
+                                <td class="px-6 py-2">{{ $item->nosurat }}</td>
+                                <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
+                                <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
+                                <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
+                                <td class="px-6 py-2">{{ $item->keperluan }}</td>
                                 <td class="px-6 py-2">
                                     @if($item->status == 'Terverifikasi')
                                         <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
@@ -81,7 +81,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $suratdisposisi->links() }}
+                    {{ $pengajuan->links() }}
                 </div>
             </div>
         </div>

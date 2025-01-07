@@ -6,8 +6,10 @@ namespace Database\Seeders;
 
 // use App\Models\Masterpegawai;
 
-use App\Models\Masteranggota;
 use App\Models\User;
+use App\Models\Masterdaerah;
+use App\Models\Masteranggota;
+use App\Models\Masterpegawai;
 use Illuminate\Database\Seeder;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\DB;
@@ -38,12 +40,17 @@ class DatabaseSeeder extends Seeder
             'roles' => 'admin'
         ]);
 
-        // User::create([
-        //     'name' => 'Reza',
-        //     'email' => 'reza@gmail.com',
-        //     'password' => bcrypt('3'),
-        //     'roles' => 'Pimpinan'
-        // ]);
+        Masterdaerah::create([
+            'namadaerah' => 'Denpasar',
+            'alamat' => 'Bali',
+        ]);
+        Masterpegawai::create([
+            'nama' => 'Robi',
+            'email' => 'robi@gmail.com',
+            'no_telp' => '0819231231',
+            'jeniskelamin' => 'Laki Laki',
+            'tgl_lahir' => '04-03-2019'
+        ]);
 
     }
 }

@@ -41,8 +41,16 @@ Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function() {
     Route::resource('perjalanan', PerjalananController::class);
     Route::resource('pendapatan', PendapatanController::class);
     Route::resource('pengajuan', PengajuanController::class);
+    Route::get('suratarsip', [PerjalananController::class, 'suratArsip'])->name('suratarsip');
 
-    Route::put('/perjalanan/{id}/status', [PerjalananController::class, 'updateStatus'])->name('updateStatus');
+    // Route::put('/perjalanan/{id}/status', [PerjalananController::class, 'updateStatus'])->name('updateStatus');
+    Route::put('/update-status/{id}', [PerjalananController::class, 'updateStatus'])->name('updateStatusperjalanan');
+
+
+
+
+    // Disposisi Verifikasi
+
 
 
 
@@ -54,23 +62,34 @@ Route::get('pengajuanpdf', [PengajuanController::class, 'pengajuanpdf'])->name('
 
 // Recap Laporan Tampilan
 Route::get('laporannya/laporanperjalanan', [PerjalananController::class, 'cetakbarangpertanggal'])->name('laporanperjalanan');
+Route::get('laporannya/laporanarsipperjalanan', [PerjalananController::class, 'cetakarsipertanggal'])->name('laporanarsipperjalanan');
 Route::get('laporannya/laporanpendapatan', [PendapatanController::class, 'cetakbarangpertanggal'])->name('laporanpendapatan');
 Route::get('laporannya/laporanpengajuan', [PengajuanController::class, 'cetakbarangpertanggal'])->name('laporanpengajuan');
+Route::get('laporannya/laporanarsippdf', [PerjalananController::class, 'laporanArsipPDF'])->name('laporanarsippdf');
 
 
 // Filtering
 Route::get('laporanperjalanan', [PerjalananController::class, 'filterdatebarang'])->name('perjalanan');
+Route::get('laporanarsipperjalanan', [PerjalananController::class, 'filterdatearsip'])->name('arsipperjalanan');
 Route::get('laporanpendapatan', [PendapatanController::class, 'filterdatebarang'])->name('pendapatan');
 Route::get('laporanpengajuan', [PengajuanController::class, 'filterdatebarang'])->name('pengajuan');
 
 
 // Filter Laporan
 Route::get('laporanperjalananpdf/filter={filter}', [PerjalananController::class, 'laporanperjalananpdf'])->name('laporanperjalananpdf');
+Route::get('laporanarsipperjalananpdf/filter={filter}', [PerjalananController::class, 'laporanarsipperjalananpdf'])->name('laporanarsipperjalananpdf');
 Route::get('laporanpendapatanpdf/filter={filter}', [PendapatanController::class, 'laporanpendapatanpdf'])->name('laporanpendapatanpdf');
 Route::get('laporanpengajuanpdf/filter={filter}', [PengajuanController::class, 'laporanpengajuanpdf'])->name('laporanpengajuanpdf');
 
 // Pengajuan status
 Route::put('/pengajuan/{id}/status', [PengajuanController::class, 'updateStatus'])->name('updateStatus');
+
+// Route to show verified surat data
+Route::get('suratverif', [PengajuanController::class, 'tampilanterverifikasi'])->name('suratverif');
+// Route for searching surat
+Route::get('suratverif/search', [PengajuanController::class, 'terverifikasipencariannomorsurat'])->name('suratverif.search');
+// Route to generate PDF for printing
+Route::get('suratverif/pdf', [PengajuanController::class, 'terverifikasipdf'])->name('laporansuratverifpdf');
 
 });
 

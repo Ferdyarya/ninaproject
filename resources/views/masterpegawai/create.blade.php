@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="form-group">
                                           <label for="email">Email</label>
-                                          <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                          <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email"
                                               aria-describedby="emailHelp" placeholder="Masukan Email" value="{{ old('email') }}" required>
                                           @error('email')
                                               <div class="invalid-feedback">{{ $message }}</div>

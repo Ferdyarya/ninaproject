@@ -59,7 +59,7 @@
                                   </div>
                                   <div class="form-group">
                                       <label for="keperluan">Keperluan</label>
-                                      <input  type="number" name="keperluan" class="form-control @error('keperluan') is-invalid @enderror" id="keperluan" placeholder="Masukkan Tujuan Surat" value="{{ old('keperluan') }}" required>
+                                      <input  type="text" name="keperluan" class="form-control @error('keperluan') is-invalid @enderror" id="keperluan" placeholder="Masukkan Tujuan Surat" value="{{ old('keperluan') }}" required>
                                       @error('keperluan')
                                           <div class="invalid-feedback">{{ $message }}</div>
                                       @enderror

@@ -9,7 +9,7 @@
             <!-- Row 1 -->
             <div class="row">
                 <!-- BOOKS -->
-                <div class="col-lg-3 col-sm-6">
+                {{-- <div class="col-lg-3 col-sm-6">
                     <a href="/">
                         <div class="card">
                             <div class="card-body">
@@ -52,9 +52,9 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> --}}
                 <!-- CATEGORIES -->
-                <div class="col-lg-3 col-6">
+                {{-- <div class="col-lg-3 col-6">
                     <a href="/">
                         <div class="card">
                             <div class="card-body">
@@ -68,7 +68,7 @@
                         </div>
                     </a>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- REPORT TODAY -->
             <div class="row">
@@ -80,15 +80,15 @@
                         </div>
                         <div class="card-body">
                             <div class="row text-center">
-                                <div class="col-6 col-md-3">
+                                {{-- <div class="col-6 col-md-3">
                                     <h4 class="text-success"><b>Surat Checking</b></h4>
                                     <h3> </h3>
-                                </div>
+                                </div> --}}
                                 {{-- <div class="col-6 col-md-3">
                                     <h4 class="text-info"><b>Surat Keluar</b></h4>
                                     <h3></h3>
                                 </div> --}}
-                                <div class="col-6 col-md-3">
+                                {{-- <div class="col-6 col-md-3">
                                     <h4 class="text-info"><b>Disposisi</b></h4>
                                     <h3></h3>
                                 </div>
@@ -114,7 +114,7 @@
                                 <div class="col-6 col-md-3">
                                     <h4 class="text-secondary"><b>Surat Terverifikasi</b></h4>
                                     <h3>/</h3>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

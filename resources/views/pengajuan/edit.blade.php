@@ -58,7 +58,7 @@
 
                                     <div class="form-group">
                                         <label for="keperluan">keperluan</label>
-                                        <input value="{{ $item->keperluan }}" type="number" name="keperluan" class="form-control" placeholder="Masukan Keperluan" required>
+                                        <input value="{{ $item->keperluan }}" type="text" name="keperluan" class="form-control" placeholder="Masukan Keperluan" required>
                                     </div>
 
 

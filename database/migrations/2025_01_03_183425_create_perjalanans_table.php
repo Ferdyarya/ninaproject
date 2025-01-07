@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->string('tanggal');
             $table->string('perihal');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

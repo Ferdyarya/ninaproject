@@ -182,4 +182,33 @@ public function generatenosurat()
         // Redirect back to the suratmasuk page with a success message
         return redirect()->route('pengajuan.index')->with('success', 'Status surat berhasil diperbarui.');
     }
+
+
+    //  Tampilan dan report Surat Terverifikasi
+    public function tampilanterverifikasi()
+    {
+        $pengajuan = Pengajuan::where('status', 'Terverifikasi')->paginate(10);
+        return view('laporannya.suratverif', compact('pengajuan'));
+    }
+
+    public function terverifikasipencariannomorsurat(Request $request)
+    {
+        $search = $request->get('search');
+        $pengajuan = Pengajuan::where('nmrsurat', 'LIKE', "%$search%")
+                                         ->where('status', 'Terverifikasi')
+                                         ->paginate(10);
+        return view('laporannya.suratverif', compact('pengajuan'));
+    }
+
+    public function terverifikasipdf()
+    {
+        // Fetch surat disposisi with status 'Terverifikasi'
+        $laporanpengajuan = Pengajuan::where('status', 'Terverifikasi')->get();
+
+        // Generate the PDF from the 'laporannya.suratverifpdf' view and pass the pengajuan data
+        $pdf = PDF::loadView('laporannya.laporansuratverifpdf', compact('laporanpengajuan'));
+
+        // Download the PDF with a specific filename
+        return $pdf->download('suratverif.pdf');
+    }
 }
