@@ -69,8 +69,11 @@
             <tr>
                 <td><img src="{{ public_path('assets/logobjb3.png') }}" alt="logo" width="140px"></td>
                 <td class="tengah">
-                    <h4>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</h4>
-                    <p>Jl. Pangeran Suriansyah No.9, Loktabat Utara, Kec. Banjarbaru Utara, Kota Banjar Baru, Kalimantan Selatan</p>
+                    <h4><b>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</b></h4>
+                    <p>Jl. Raya Dharma Praja
+                        Kawasan Perkantoran Pemprov Kalsel, Trikora
+                        Banjarbaru, Kalimantan Selatan
+                        Kode Pos 70700</p>
                 </td>
             </tr>
         </table>
@@ -119,7 +122,15 @@
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
-    <p class="signature">(Pimpinan)</p>
+
+    <div>
+        <p class="signature">(Pimpinan)</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p style="text-align: right; margin-top: 8px;"><b>H. SUBHAN YAUMIL, S.E.,M.SI</b></p>
+    </div>
 </body>
 
 </html>

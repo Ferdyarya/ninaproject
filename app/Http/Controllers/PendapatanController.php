@@ -158,21 +158,31 @@ public function generatenosurat()
      }
 
 
-     public function laporanpendapatanpdf(Request $request )
-     {
-         $startDate = session('filter_start_date');
-         $endDate = session('filter_end_date');
+     public function laporanpendapatanpdf(Request $request)
+{
+    $startDate = session('filter_start_date');
+    $endDate = session('filter_end_date');
 
-         if ($startDate == '' && $endDate == '') {
-             $laporanpendapatan = Pendapatan::all();
-         } else {
-             $laporanpendapatan = Pendapatan::whereDate('tanggal', '>=', $startDate)
-                                             ->whereDate('tanggal', '<=', $endDate)
-                                             ->get();
-         }
+    // Mengambil data laporan berdasarkan filter tanggal
+    if ($startDate == '' && $endDate == '') {
+        $laporanpendapatan = Pendapatan::all();
+    } else {
+        $laporanpendapatan = Pendapatan::whereDate('tanggal', '>=', $startDate)
+                                        ->whereDate('tanggal', '<=', $endDate)
+                                        ->get();
+    }
 
-         // Render view dengan menyertakan data laporan dan informasi filter
-         $pdf = PDF::loadview('laporannya.laporanpendapatanpdf', compact('laporanpendapatan'));
-         return $pdf->download('laporan_laporanpendapatan.pdf');
-     }
+    // Mengambil data pengguna yang sedang login
+    $user = auth()->user();
+
+    // Menghitung Grand Total
+    $grandTotal = $laporanpendapatan->sum('nominal');
+
+    // Render view dengan menyertakan data laporan, grand total, dan informasi pengguna
+    $pdf = PDF::loadview('laporannya.laporanpendapatanpdf', compact('laporanpendapatan', 'user', 'grandTotal'));
+
+    // Mengunduh file PDF
+    return $pdf->download('laporan_laporanpendapatan.pdf');
+}
+
 }

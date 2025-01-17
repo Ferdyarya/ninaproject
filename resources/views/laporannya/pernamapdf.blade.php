@@ -70,8 +70,10 @@
                 <td><img src="{{ public_path('assets/logo-sekolah.png') }}" alt="logo" width="140px"></td>
                 <td class="tengah">
                     <h4>SMK NEGERI 3 MARABAHAN</h4>
-                    <p>Jl. Purwosari No.KM. 6, Purwosari Baru, Kec. Tamban, Kabupaten Barito Kuala, Kalimantan Selatan
-                        70566</p>
+                    <p>Jl. Raya Dharma Praja
+                        Kawasan Perkantoran Pemprov Kalsel,Trikora
+                        Banjarbaru,Kalimantan Selatan
+                        Kode Pos 70700</p>
                 </td>
             </tr>
         </table>
@@ -119,7 +121,15 @@
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
-    <p class="signature">(admin)</p>
+
+    <div>
+        <p class="signature">(Pimpinan)</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p style="text-align: right; margin-top: 8px;"><b>H. SUBHAN YAUMIL, S.E.,M.SI</b></p>
+    </div>
 </body>
 
 </html>
