@@ -71,7 +71,7 @@
                 <td class="tengah">
                     <h4>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</h4>
                     <p>Jl. Raya Dharma Praja
-                        Kawasan Perkantoran Pemprov Kalsel, Trikora
+                         Pemprov Kalsel, Trikora
                         Banjarbaru, Kalimantan Selatan
                         Kode Pos 70700</p>
                 </td>

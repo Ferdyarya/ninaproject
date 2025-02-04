@@ -57,6 +57,11 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="ketdana">Keterangan Dana</label>
+                                        <input value="{{ $item->ketdana }}" type="text" name="ketdana" class="form-control" placeholder="Masukan ketdana" required>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="filelaporan">File Surat</label>
                                         <input type="file" name="filelaporan" class="form-control">
                                         @if($item->filelaporan)

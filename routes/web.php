@@ -1,9 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+use App\Models\Pengajuan;
+use App\Models\Pendapatan;
 
 // New
+use App\Models\Perjalanan;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PendapatanController;
@@ -25,8 +28,21 @@ use App\Http\Controllers\SuratdisposisiController;
 */
 
 Route::get('/', function () {
+    $dateNow = new \DateTime();
+    $jumlahsuratperjalanan = Perjalanan::count();
+    $jumlahsuratarsip = Perjalanan::where('status', 'Arsipkan')->count();
+    $jumlahsuratpengajuan = Pengajuan::count();
+    $jumlahsuratpendapatan = Pendapatan::count();
 
-    return view('dashboard');
+    // Mengambil data pendapatan per tahun
+    $income2023 = Pendapatan::whereYear('created_at', 2023)->count();
+    $income2024 = Pendapatan::whereYear('created_at', 2024)->count();
+    $income2025 = Pendapatan::whereYear('created_at', 2025)->count();
+
+
+    return view('dashboard',compact(
+        'dateNow','jumlahsuratperjalanan','jumlahsuratarsip','jumlahsuratpengajuan','jumlahsuratpendapatan','income2023','income2024','income2025'
+    ));
 })->middleware('auth');
 
 

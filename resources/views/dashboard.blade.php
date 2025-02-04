@@ -7,129 +7,48 @@
 
         <div class="container-fluid">
             <!-- Row 1 -->
-            <div class="row">
-                <!-- BOOKS -->
-                {{-- <div class="col-lg-3 col-sm-6">
-                    <a href="/">
-                        <div class="card">
-                            <div class="card-body">
-                                <h2>
-                                    <i class="ti ti-book"></i>
-                                </h2>
-                                <h3>
-                                     Jumlah Data Surat
-                                </h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- BOOK STOCK -->
-                <div class="col-lg-3 col-sm-6">
-                    <a href="/">
-                        <div class="card">
-                            <div class="card-body">
-                                <h2>
-                                    <i class="ti ti-database"></i>
-                                </h2>
-                                <h3>
-                                     Jumlah Surat Disposisi
-                                </h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- RACKS -->
-                <div class="col-lg-3 col-6">
-                    <a href="/">
-                        <div class="card">
-                            <div class="card-body">
-                                <h2>
-                                    <i class="ti ti-columns"></i>
-                                </h2>
-                                <h3>
-                                    Jumlah klasifikasi surat
-                                </h3>
-                            </div>
-                        </div>
-                    </a>
-                </div> --}}
-                <!-- CATEGORIES -->
-                {{-- <div class="col-lg-3 col-6">
-                    <a href="/">
-                        <div class="card">
-                            <div class="card-body">
-                                <h2>
-                                    <i class="ti ti-category-2"></i>
-                                </h2>
-                                <h3>
-                                     Tujuan disposisi
-                                </h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div> --}}
-
             <!-- REPORT TODAY -->
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header card-header-primary">
-                            <h3 class="card-title"><b>Laporan Hari Ini</b></h3>
-                            {{-- {{ $dateNow->format('d F Y') }} --}}
-                        </div>
                         <div class="card-body">
-                            <div class="row text-center">
-                                {{-- <div class="col-6 col-md-3">
-                                    <h4 class="text-success"><b>Surat Checking</b></h4>
-                                    <h3> </h3>
-                                </div> --}}
-                                {{-- <div class="col-6 col-md-3">
-                                    <h4 class="text-info"><b>Surat Keluar</b></h4>
-                                    <h3></h3>
-                                </div> --}}
-                                {{-- <div class="col-6 col-md-3">
-                                    <h4 class="text-info"><b>Disposisi</b></h4>
-                                    <h3></h3>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <h4 class="text-danger"><b>Surat Klasifikasi</b></h4>
-                                    <h3></h3>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <h4 class="text-warning"><b>Jumlah Semua Surat</b></h4>
-                                    <h3>/</h3>
-                                </div>
+                            <div class="card-header card-header-primary">
+                                <h3 class="card-title"><b>Laporan Hari Ini</b></h3>
+                                {{ $dateNow ? $dateNow->format('d F Y') : 'Tanggal tidak tersedia' }}
                             </div>
-                            <div class="row text-center mt-4">
-
+                            <div class="row text-center">
                                 <div class="col-6 col-md-3">
-                                    <h4 class="text-dark"><b>Permohonan Surat</b></h4>
-                                    <h3>/</h3>
+                                    <h4 class="text-info"><b>Surat Perjalanan Dinas</b></h4>
+                                    <h3>{{ $jumlahsuratperjalanan ?? 0 }}</h3>
                                 </div>
                                 <div class="col-6 col-md-3">
-                                    <h4 class="text-primary"><b>Surat Ditolak</b></h4>
-                                    <h3>/</h3>
+                                    <h4 class="text-info"><b>Surat Yang Arsip</b></h4>
+                                    <h3>{{ $jumlahsuratarsip ?? 0 }}</h3>
                                 </div>
                                 <div class="col-6 col-md-3">
-                                    <h4 class="text-secondary"><b>Surat Terverifikasi</b></h4>
-                                    <h3>/</h3>
-                                </div> --}}
+                                    <h4 class="text-info"><b>Surat Pengajuan Dana</b></h4>
+                                    <h3>{{ $jumlahsuratpengajuan ?? 0 }}</h3>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <h4 class="text-info"><b>Surat Pendapatan Daerah</b></h4>
+                                    <h3>{{ $jumlahsuratpendapatan ?? 0 }}</h3>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+
             <!-- Grafik Peminjaman Buku -->
-            {{-- <div class="row mt-5">
+            <div class="row mt-5">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><b>Peminjaman Buku dalam 3 Tahun Terakhir</b></h3>
+                            <h3 class="card-title"><b>Pendapatan Dana Tahunan</b></h3>
                         </div>
                         <div class="card-body">
-                            <canvas id="bookLoansChart" width="400" height="200"></canvas>
+                            <canvas id="incomeChart" width="400" height="200"></canvas>
                         </div>
                     </div>
                 </div>
@@ -137,14 +56,14 @@
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
-                const ctx = document.getElementById('bookLoansChart').getContext('2d');
-                const bookLoansChart = new Chart(ctx, {
+                const ctx = document.getElementById('incomeChart').getContext('2d');
+                const incomeChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: ['2021', '2022', '2023', '2024'], // Ganti dengan tahun yang sesuai
+                        labels: ['2023', '2024', '2025'], // Tahun-tahun yang sesuai
                         datasets: [{
-                            label: 'Peminjaman Buku',
-                            data: [{{ $loans2021 }}, {{ $loans2022 }}, {{ $loans2023 }}, {{ $loans2024 }}], // Ganti dengan data aktual
+                            label: 'Pendapatan Dana',
+                            data: [{{ $income2023 }}, {{ $income2024 }}, {{ $income2025 }}], // Data pendapatan aktual untuk tahun 2021, 2022, dan 2023
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                             borderWidth: 2
@@ -159,7 +78,8 @@
                         }
                     }
                 });
-            </script> --}}
+            </script>
+
         </div>
     </div>
 @endsection

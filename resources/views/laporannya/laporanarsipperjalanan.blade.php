@@ -54,10 +54,10 @@
 
                             <div class="col-md-2 pt-4">
                                 @if (!empty($filter))
-                                    <a href="{{ route('laporanarsipperjalanan', $filter) }}"
+                                    <a href="{{ route('laporanarsipperjalananpdf', $filter) }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @else
-                                    <a href="{{ route('laporanarsipperjalanan', 'all') }}"
+                                    <a href="{{ route('laporanarsipperjalananpdf', 'all') }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @endif
                             </div>

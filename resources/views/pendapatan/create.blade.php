@@ -62,6 +62,13 @@
                                           <div class="invalid-feedback">{{ $message }}</div>
                                       @enderror
                                   </div>
+                                  <div class="form-group">
+                                    <label for="ketdana">Keterangan Dana</label>
+                                    <input type="text" name="ketdana" class="form-control @error('ketdana') is-invalid @enderror" id="ketdana" placeholder="Masukkan ketdana Perjalanan" value="{{ old('ketdana') }}" required>
+                                    @error('ketdana')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                               </div>

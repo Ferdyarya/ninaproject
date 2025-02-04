@@ -9,7 +9,7 @@ class Pendapatan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nosurat','id_daerah','nominal','tanggal','filelaporan'
+        'nosurat','id_daerah','nominal','tanggal','filelaporan','ketdana'
     ];
 
     public function masterdaerah()

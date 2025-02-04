@@ -70,10 +70,7 @@
                 <td><img src="{{ public_path('assets/logobjb3.png') }}" alt="logo" width="140px"></td>
                 <td class="tengah">
                     <h4><b>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</b></h4>
-                    <p>Jl. Raya Dharma Praja
-                        Kawasan Perkantoran Pemprov Kalsel, Trikora
-                        Banjarbaru, Kalimantan Selatan
-                        Kode Pos 70700</p>
+                    <p>Jl. Raya Dharma Praja Pemprov Kalsel, Trikora Banjarbaru, Kalimantan Selatan Kode Pos 70700</p>
                 </td>
             </tr>
         </table>
@@ -100,9 +97,9 @@
             </tr>
         </thead>
         <tbody>
-            {{-- @php
+            @php
             $grandTotal = 0;
-            @endphp --}}
+            @endphp
 
             @foreach ($laporanpengajuan as $item)
                 <tr>
@@ -110,20 +107,29 @@
                     <td class="px-6 py-2">{{ $item->nosurat }}</td>
                     <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                     <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
-                    <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
                     <td class="px-6 py-2">{{ $item->keperluan }}</td>
                     <td class="px-6 py-2">
                         @if ($item->status == 'Terverifikasi')
-                            <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
-                            <!-- Green for verified -->
+                        <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
+                        <!-- Green for verified -->
                         @elseif($item->status == 'Ditolak')
-                            <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
-                            <!-- Red/orange for rejected -->
+                        <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
+                        <!-- Red/orange for rejected -->
                         @endif
                     </td>
+                    <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
                 </tr>
+                @php
+                $grandTotal += $item->nominal;
+            @endphp
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" class="text-right px-6 py-2"><strong>Grand Total: </strong></td>
+                <td class="px-6 py-2">Rp. {{ number_format($grandTotal) }}</td>
+            </tr>
+        </tfoot>
     </table>
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>

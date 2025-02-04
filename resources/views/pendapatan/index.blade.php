@@ -51,6 +51,7 @@
                                         <th class="px-6 py-2">Tanggal</th>
                                         <th class="px-6 py-2">Daerah</th>
                                         <th class="px-6 py-2">Nominal</th>
+                                        <th class="px-6 py-2">Keterangan Dana</th>
                                         <th class="px-6 py-2">File Surat</th>
                                         <th class="px-6 py-2">Action</th>
                                     </tr>
@@ -66,6 +67,7 @@
                                             <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                                             <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
                                             <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
+                                            <td class="px-6 py-2">{{ $item->ketdana }}</td>
                                             <td class="border textmid">
                                                 @if ($item->filelaporan)
                                                     <!-- Periksa nama kolom yang sesuai -->

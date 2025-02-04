@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('pendapatans', function (Blueprint $table) {
             $table->id();
             $table->string('nosurat')->nullable();
-            // $table->string('id_pegawai');
             $table->string('id_daerah');
             $table->string('nominal');
+            $table->string('ketdana');
             $table->string('tanggal');
             $table->string('filelaporan');
             $table->timestamps();
