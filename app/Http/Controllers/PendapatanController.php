@@ -41,6 +41,7 @@ class PendapatanController extends Controller
         'id_daerah' => 'required|string',
         'tanggal' => 'required|date',
         'nominal' => 'required|numeric',
+        'ketdana' => 'required|string',
         'filelaporan' => 'file|mimes:pdf',
     ]);
 
@@ -48,7 +49,7 @@ class PendapatanController extends Controller
     $nosurat = $this->generatenosurat();
 
     // Persiapkan data untuk disimpan
-    $data = $request->only(['id_daerah', 'tanggal', 'nominal', 'filelaporan']);
+    $data = $request->only(['id_daerah', 'tanggal', 'nominal', 'filelaporan','ketdana']);
     $data['nosurat'] = $nosurat;
 
     // Menangani file surat jika ada
@@ -132,14 +133,14 @@ public function generatenosurat()
 
 
      // Laporan Buku Surat Pusat Filter
-     public function cetakbarangpertanggal()
+     public function cetakpendapatanpertanggal()
      {
          $pendapatan = Pendapatan::Paginate(10);
 
          return view('laporannya.laporanpendapatan', ['laporanpendapatan' => $pendapatan]);
      }
 
-     public function filterdatebarang(Request $request)
+     public function filterdatependapatan(Request $request)
      {
          $startDate = $request->input('dari');
          $endDate = $request->input('sampai');

@@ -74,6 +74,7 @@
                                     <th class="px-6 py-2">Daerah</th>
                                     <th class="px-6 py-2">Nominal</th>
                                     <th class="px-6 py-2">Keperluan</th>
+                                    <th class="px-6 py-2">Penanggung Jawab</th>
                                     <th class="px-6 py-2">Status</th>
                                 </tr>
                             </thead>
@@ -89,8 +90,8 @@
                                         <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
                                         <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
                                         <td class="px-6 py-2">{{ $item->keperluan }}</td>
+                                        <td class="px-6 py-2">{{ $item->penanggungjawab }}</td>
                                         <td class="px-6 py-2">
-                                            <!-- Display status as a badge if it's already set -->
                                             @if($item->status == 'Terverifikasi')
                                                 <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
                                             @elseif($item->status == 'Ditolak')

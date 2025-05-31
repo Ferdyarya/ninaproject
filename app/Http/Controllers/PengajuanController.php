@@ -11,16 +11,21 @@ use Illuminate\Http\Request;
 class PengajuanController extends Controller
 {
     public function index(Request $request)
-    {
-        if($request->has('search')){
-            $pengajuan = Pengajuan::where('nosurat', 'LIKE', '%' .$request->search.'%')->paginate(10);
-        }else{
-            $pengajuan = Pengajuan::paginate(10);
-        }
-        return view('pengajuan.index',[
-            'pengajuan' => $pengajuan
-        ]);
+{
+    if($request->has('search')) {
+        $search = $request->search;
+        $pengajuan = Pengajuan::where('nosurat', 'LIKE', '%' . $search . '%')
+                        ->orWhere('keperluan', 'LIKE', '%' . $search . '%')
+                        ->paginate(10);
+    } else {
+        $pengajuan = Pengajuan::paginate(10);
     }
+
+    return view('pengajuan.index', [
+        'pengajuan' => $pengajuan
+    ]);
+}
+
 
 
     public function create()
@@ -120,14 +125,14 @@ public function generatenosurat()
 
 
      // Laporan Buku Surat Pusat Filter
-     public function cetakbarangpertanggal()
+     public function cetakpengajuanpertanggal()
      {
          $pengajuan = Pengajuan::Paginate(10);
 
          return view('laporannya.laporanpengajuan', ['laporanpengajuan' => $pengajuan]);
      }
 
-     public function filterdatebarang(Request $request)
+     public function filterdatepengajuan(Request $request)
      {
          $startDate = $request->input('dari');
          $endDate = $request->input('sampai');
@@ -182,6 +187,7 @@ public function generatenosurat()
         // Redirect back to the suratmasuk page with a success message
         return redirect()->route('pengajuan.index')->with('success', 'Status surat berhasil diperbarui.');
     }
+
 
 
     //  Tampilan dan report Surat Terverifikasi

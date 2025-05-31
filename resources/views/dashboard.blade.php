@@ -3,7 +3,7 @@
 @section('content')
     <!-- Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-      data-sidebar-position="fixed" data-header-position="fixed">
+        data-sidebar-position="fixed" data-header-position="fixed">
 
         <div class="container-fluid">
             <!-- Row 1 -->
@@ -45,7 +45,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><b>Pendapatan Dana Tahunan</b></h3>
+                            <h3 class="card-title"><b>Pendapatan Dana Bulanan (2025)</b></h3>
                         </div>
                         <div class="card-body">
                             <canvas id="incomeChart" width="400" height="200"></canvas>
@@ -60,13 +60,14 @@
                 const incomeChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: ['2023', '2024', '2025'], // Tahun-tahun yang sesuai
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
                         datasets: [{
-                            label: 'Pendapatan Dana',
-                            data: [{{ $income2023 }}, {{ $income2024 }}, {{ $income2025 }}], // Data pendapatan aktual untuk tahun 2021, 2022, dan 2023
+                            label: 'Pendapatan Dana (2024)',
+                            data: @json($monthlyIncome),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderWidth: 2
+                            borderWidth: 2,
+                            tension: 0.3
                         }]
                     },
                     options: {
@@ -79,6 +80,7 @@
                     }
                 });
             </script>
+
 
         </div>
     </div>
