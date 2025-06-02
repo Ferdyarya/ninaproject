@@ -37,7 +37,7 @@
 
 
                     <div class="container">
-                        <form action="{{ route('laporanpengajuan') }}" method="GET" class="row">
+                        <form action="{{ route('laporanalokasi') }}" method="GET" class="row">
                             <div class="col-md-3">
                                 <label for="dari">Start Date:</label>
                                 <input type="date" id="dari" name="dari" class="form-control">
@@ -54,10 +54,10 @@
 
                             <div class="col-md-2 pt-4">
                                 @if (!empty($filter))
-                                    <a href="{{ route('laporanpengajuanpdf', $filter) }}"
+                                    <a href="{{ route('laporanalokasipdf', $filter) }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @else
-                                    <a href="{{ route('laporanpengajuanpdf', 'all') }}"
+                                    <a href="{{ route('laporanalokasipdf', 'all') }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @endif
                             </div>
@@ -82,9 +82,9 @@
                                 {{-- @php
                               $no=1;
                               @endphp --}}
-                                @foreach ($laporanpengajuan as $index => $item)
+                                @foreach ($laporanalokasi as $index => $item)
                                     <tr>
-                                        <th class="px-6 py-2">{{ $index + $laporanpengajuan->firstItem() }}</th>
+                                        <th class="px-6 py-2">{{ $index + $laporanalokasi->firstItem() }}</th>
                                         <td class="px-6 py-2">{{ $item->nosurat }}</td>
                                         <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                                         <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
@@ -102,7 +102,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $laporanpengajuan->links() }}
+                        {{ $laporanalokasi->links() }}
                     </div>
                 </div>
             </div>

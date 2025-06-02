@@ -113,6 +113,30 @@
                         <span class="hide-menu">Surat Dinas Pendapatan Daerah</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('alokasi.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-mail"></i>
+                        </span>
+                        <span class="hide-menu">Surat Dinas Alokasi Dana Daerah</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('penyetopan.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-mail"></i>
+                        </span>
+                        <span class="hide-menu">Surat Dinas Penyetopan Dana Daerah</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('kerugian.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-mail"></i>
+                        </span>
+                        <span class="hide-menu">Surat Dinas Kerugian Dana Daerah</span>
+                    </a>
+                </li>
 
 
                 {{-- <li class="sidebar-item">
@@ -161,11 +185,35 @@
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('suratverif')}}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('pernama')}}" aria-expanded="false">
                       <span>
                         <i class="ti ti-report"></i>
                       </span>
-                      <span class="hide-menu">Lap Dana Daerah Disetujui pemerintah</span>
+                      <span class="hide-menu">Lap Daerah Penerima Dana Pemerintah</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('laporanalokasi')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Surat Alokasi Anggaran</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('laporanpenyetopan')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Surat Penyetopan Dana</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('laporankerugian')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Surat Kerugian Dana Daerah</span>
                     </a>
                   </li>
                 </ul>

@@ -135,7 +135,7 @@ class PerjalananController extends Controller
         return view('perjalanan.suratarsip', compact('perjalanan'));
     }
 
-    public function updateStatus(Request $request, $id)
+    public function updateStatusperjalanan(Request $request, $id)
     {
         // Validasi status
         // $validated = $request->validate([

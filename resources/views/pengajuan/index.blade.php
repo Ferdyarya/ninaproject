@@ -76,7 +76,7 @@
                                                     <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
                                                 @else
                                                     <!-- Form for selecting status if it's not set to 'Terverifikasi' or 'Ditolak' -->
-                                                    <form action="{{ route('updateStatus', $item->id) }}" method="POST">
+                                                    <form action="{{ route('updateStatusPengajuan', $item->id) }}" method="POST">
                                                         @csrf
                                                         @method('PUT') <!-- Use PUT method to update the record -->
                                                         <select name="status" class="form-control form-control-sm">

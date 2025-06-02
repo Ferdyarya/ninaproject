@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\Kerugian;
 use App\Models\Masterdaerah;
 use Illuminate\Http\Request;
@@ -33,16 +34,21 @@ class KerugianController extends Controller
 
     public function store(Request $request)
     {
-        // Generate kode surat
+        $request->validate([
+            'id_daerah' => 'required|string',
+            'keterangan' => 'required|string',
+            'penanggungjawab' => 'required|string',
+            'jumlahkerugian' => 'required|numeric',
+            'tanggal' => 'required|date',
+        ]);
+
         $nosurat = $this->generatenosurat();
 
-        // Ambil data dari request dan tambahkan kode surat
+        $data = $request->all(['id_daerah', 'keterangan', 'jumlahkerugian', 'tanggal','penanggungjawab']);
         $data['nosurat'] = $nosurat;
 
-        // Menyimpan data ke database
         Kerugian::create($data);
 
-        // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('kerugian.index')->with('success', 'Data telah ditambahkan');
     }
 

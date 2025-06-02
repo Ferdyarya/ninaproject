@@ -77,7 +77,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Pengajuan Diverifikasi</h5>
+        <h5 class="mt-4">Rekap Laporan Daerah Penerima Dana Pemerintah</h5>
     </center>
 
 

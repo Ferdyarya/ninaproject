@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Data Laporan Daerah Penerima Dana</h3>
+                                <h3 class="m-0">Laporan Data Surat Kerugian Dana Daerah</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Data Laporan Daerah Penerima Dana</li>
+                                    <li class="breadcrumb-item active">Laporan Data Surat Kerugian Dana Daerah</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -37,39 +37,34 @@
 
 
                     <div class="container">
-                        <form action="{{ route('pernama') }}" method="GET" class="row align-items-center">
-                            <div class="col-md-8 mb-2">
-                                <div class="form-group">
-                                    <label for="filter" class="sr-only">Filter</label>
-                                    <select name="filter" id="filter" class="form-control">
-                                        <option value="">FILTER</option>
-                                        <option value="all" {{ $filter === 'all' ? 'selected' : '' }}>SHOW ALL</option>
-                                        @if ($pengajuan->isEmpty())
-                                            <option value="" disabled>Data Tidak Tersedia</option>
-                                        @else
-                                            @foreach ($pengajuan->unique('id_daerah') as $item)
-                                                <option value="{{ $item->id_daerah }}"
-                                                    {{ $item->id_daerah == $filter ? 'selected' : '' }}>
-                                                    {{ strtoupper($item->masterdaerah->namadaerah) }}
-                                                </option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                </div>
+                        <form action="{{ route('laporankerugian') }}" method="GET" class="row">
+                            <div class="col-md-3">
+                                <label for="dari">Start Date:</label>
+                                <input type="date" id="dari" name="dari" class="form-control">
                             </div>
-                            <div class="col-md-2 mb-2">
-                                <button type="submit" class="btn btn-success btn-block">Submit</button>
+
+                            <div class="col-md-3">
+                                <label for="sampai">End Date:</label>
+                                <input type="date" id="sampai" name="sampai" class="form-control">
                             </div>
-                            <div class="col-md-2 mb-2">
-                                <a href="{{ route('pernamapdf', ['filter' => $filter ?: 'all']) }}"
-                                    class="btn btn-danger btn-block">
-                                    Export PDF
-                                </a>
+
+                            <div class="col-md-1 pt-4">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+
+                            <div class="col-md-2 pt-4">
+                                @if (!empty($filter))
+                                    <a href="{{ route('laporankerugianpdf', $filter) }}"
+                                        class="btn btn-danger btn-block">Export PDF</a>
+                                @else
+                                    <a href="{{ route('laporankerugianpdf', 'all') }}"
+                                        class="btn btn-danger btn-block">Export PDF</a>
+                                @endif
                             </div>
                         </form>
                     </div>
 
-                    <div class="container mt-4">
+                    <div>
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -77,37 +72,30 @@
                                     <th class="px-6 py-2">Nomor Surat</th>
                                     <th class="px-6 py-2">Tanggal</th>
                                     <th class="px-6 py-2">Daerah</th>
-                                    <th class="px-6 py-2">Nominal</th>
-                                    <th class="px-6 py-2">Keperluan</th>
-                                    <th class="px-6 py-2">Status</th>
+                                    <th class="px-6 py-2">Jumlah Kerugian</th>
+                                    <th class="px-6 py-2">Keterangan</th>
+                                    <th class="px-6 py-2">Penanggung Jawab</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pengajuan as $index => $item)
+                                {{-- @php
+                              $no=1;
+                              @endphp --}}
+                                @foreach ($laporankerugian as $index => $item)
                                     <tr>
-                                        <td class="px-6 py-2">{{ $index + $pengajuan->firstItem() }}</td>
+                                        <th class="px-6 py-2">{{ $index + $laporankerugian->firstItem() }}</th>
                                         <td class="px-6 py-2">{{ $item->nosurat }}</td>
-                                        <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-                                        </td>
+                                        <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                                         <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
-                                        <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
-                                        <td class="px-6 py-2">{{ $item->keperluan }}</td>
-                                        <td class="px-6 py-2">
-                                            @if ($item->status == 'Terverifikasi')
-                                                <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
-                                                <!-- Green for verified -->
-                                            @elseif($item->status == 'Ditolak')
-                                                <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
-                                                <!-- Red/orange for rejected -->
-                                            @endif
-                                        </td>
+                                        <td class="px-6 py-2">Rp. {{ number_format($item->jumlahkerugian) }}</td>
+                                        <td class="px-6 py-2">{{ $item->keterangan }}</td>
+                                        <td class="px-6 py-2">{{ $item->penanggungjawab }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $pengajuan->links() }}
+                        {{ $laporankerugian->links() }}
                     </div>
-
                 </div>
             </div>
         </div>

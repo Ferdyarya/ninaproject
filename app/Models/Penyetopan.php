@@ -9,7 +9,7 @@ class Penyetopan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nosurat','id_daerah','tanggal','jumlahdana','keterangan'
+        'nosurat','id_daerah','tanggal','jumlahdana','keterangan','status'
     ];
 
     public function masterdaerah()

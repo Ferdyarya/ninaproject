@@ -7,6 +7,7 @@ use PDF;
 use App\Models\Pengajuan;
 use App\Models\Masterdaerah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PengajuanController extends Controller
 {
@@ -171,7 +172,7 @@ public function generatenosurat()
 
 
      //Approval Status
-    public function updateStatus(Request $request, $id)
+    public function updateStatusPengajuan(Request $request, $id)
     {
         $validated = $request->validate([
             'status' => 'required|in:Terverifikasi,Ditolak',
@@ -190,31 +191,63 @@ public function generatenosurat()
 
 
 
-    //  Tampilan dan report Surat Terverifikasi
-    public function tampilanterverifikasi()
-    {
-        $pengajuan = Pengajuan::where('status', 'Terverifikasi')->paginate(10);
-        return view('laporannya.suratverif', compact('pengajuan'));
+    // Report Pernama
+    public function pernama(Request $request)
+{
+    // Ambil filter dari request, defaultnya adalah null
+    $filter = $request->query('filter', null);
+
+    // Ambil data pengajuan berdasarkan filter
+    if ($filter === 'all' || empty($filter)) {
+        $pengajuan = Pengajuan::paginate(10);
+    } else {
+        $pengajuan = Pengajuan::where('id_daerah', $filter)->paginate(10);
     }
 
-    public function terverifikasipencariannomorsurat(Request $request)
-    {
-        $search = $request->get('search');
-        $pengajuan = Pengajuan::where('nmrsurat', 'LIKE', "%$search%")
-                                         ->where('status', 'Terverifikasi')
-                                         ->paginate(10);
-        return view('laporannya.suratverif', compact('pengajuan'));
+    // Ambil data agregat
+    $idAnggotaCounts = Pengajuan::select('id_daerah', DB::raw('count(*) as count'))
+        ->groupBy('id_daerah')
+        ->orderBy('id_daerah')
+        ->get();
+
+    // Ambil data master anggota
+    $masterdaerah = Masterdaerah::all();
+
+    return view('laporannya.pernama', [
+        'pengajuan' => $pengajuan,
+        'idAnggotaCounts' => $idAnggotaCounts,
+        'filter' => $filter,
+        'masterdaerah' => $masterdaerah,
+    ]);
+}
+
+    // Fungsi untuk mencetak PDF
+    public function cetakPernamaPdf(Request $request)
+{
+    $filter = $request->query('filter', null);
+
+    // Handle filtering
+    if ($filter === 'all' || empty($filter)) {
+        $pengajuan = Pengajuan::all();
+    } else {
+        $pengajuan = Pengajuan::where('id_daerah', $filter)->get();
     }
 
-    public function terverifikasipdf()
-    {
-        // Fetch surat disposisi with status 'Terverifikasi'
-        $laporanpengajuan = Pengajuan::where('status', 'Terverifikasi')->get();
+    // Get aggregated data
+    $idAnggotaCounts = Pengajuan::groupBy('id_daerah')
+        ->orderBy('id_daerah')
+        ->select(DB::raw('count(*) as count, id_daerah'))
+        ->get();
 
-        // Generate the PDF from the 'laporannya.suratverifpdf' view and pass the pengajuan data
-        $pdf = PDF::loadView('laporannya.laporansuratverifpdf', compact('laporanpengajuan'));
+    // Load view and convert to PDF
+    $pdf = PDF::loadView('laporannya.pernamapdf', [
+        'pengajuan' => $pengajuan,
+        'idAnggotaCounts' => $idAnggotaCounts,
+        'filter' => $filter,
+    ]);
 
-        // Download the PDF with a specific filename
-        return $pdf->download('suratverif.pdf');
-    }
+    // Return the generated PDF as a download
+    return $pdf->download('laporan_daerah_penerima.pdf');
+}
+
 }

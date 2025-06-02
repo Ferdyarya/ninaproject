@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('jumlahdana');
             $table->string('tanggal');
             $table->string('keterangan');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

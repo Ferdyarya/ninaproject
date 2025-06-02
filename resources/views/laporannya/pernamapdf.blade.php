@@ -32,8 +32,8 @@
             padding-top: 12px;
             padding-bottom: 12px;
             /* text-align: left; */
-            background-color: #0423aa;
-            color: white;
+            background-color: #f8ff20;
+            color: rgb(0, 0, 0);
             /* text-align: center; */
         }
 
@@ -67,12 +67,12 @@
     <div class="rangkasurat">
         <table width="100%">
             <tr>
-                <td><img src="{{ public_path('assets/logo-sekolah.png') }}" alt="logo" width="140px"></td>
+                <td><img src="{{ public_path('assets/logobjb3.png') }}" alt="logo" width="140px"></td>
                 <td class="tengah">
-                    <h4>SMK NEGERI 3 MARABAHAN</h4>
+                    <h4><b>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</b></h4>
                     <p>Jl. Raya Dharma Praja
-                         Pemprov Kalsel,Trikora
-                        Banjarbaru,Kalimantan Selatan
+                        Pemprov Kalsel, Trikora
+                        Banjarbaru, Kalimantan Selatan
                         Kode Pos 70700</p>
                 </td>
             </tr>
@@ -80,7 +80,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Riwayat Peminjaman Pimpinan</h5>
+        <h5 class="mt-4">Data Laporan Daerah Penerima Dana</h5>
     </center>
 
 
@@ -91,10 +91,12 @@
         <thead>
             <tr>
                 <th class="px-6 py-2">No</th>
-                <th class="px-6 py-2">Nama Peminjam</th>
-                <th class="px-6 py-2">Judul Buku</th>
-                <th class="px-6 py-2">Jumlah</th>
-                <th class="px-6 py-2">Tgl Pinjam</th>
+                <th class="px-6 py-2">Nomor Surat</th>
+                <th class="px-6 py-2">Tanggal</th>
+                <th class="px-6 py-2">Daerah</th>
+                <th class="px-6 py-2">Nominal</th>
+                <th class="px-6 py-2">Keperluan</th>
+                <th class="px-6 py-2">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -102,18 +104,24 @@
             $grandTotal = 0;
             @endphp --}}
 
-            @foreach ($peminjaman as $item)
+            @foreach ($pengajuan as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                    <td class="px-6 py-2"><b>{{ $item->user->name }}</b></td>
-                    <td class="px-6 py-2"><b>
-                            {{ $item->masterbuku->judul }},{{ $item->masterbuku->tahun }}
-                            <p class="text-body mt-2">
-                        </b>Author: {{ $item->masterbuku->author }}</p>
+                    <td class="px-6 py-2">{{ $item->nosurat }}</td>
+                    <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
                     </td>
-                    <td class="px-6 py-2">{{ $item->jumlah }}</td>
+                    <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
+                    <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
+                    <td class="px-6 py-2">{{ $item->keperluan }}</td>
                     <td class="px-6 py-2">
-                        {{ \Carbon\Carbon::parse($item->tanggalpinjam)->format('d M Y') }}</td>
+                        @if ($item->status == 'Terverifikasi')
+                            <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
+                            <!-- Green for verified -->
+                        @elseif($item->status == 'Ditolak')
+                            <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
+                            <!-- Red/orange for rejected -->
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>

@@ -8,6 +8,7 @@ use App\Models\Perjalanan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AlokasiController;
+use App\Http\Controllers\KerugianController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PendapatanController;
@@ -58,10 +59,10 @@ Route::prefix('dashboard')
         Route::resource('pengajuan', PengajuanController::class);
         Route::resource('alokasi', AlokasiController::class);
         Route::resource('penyetopan', PenyetopanController::class);
+        Route::resource('kerugian', KerugianController::class);
         Route::get('suratarsip', [PerjalananController::class, 'suratArsip'])->name('suratarsip');
 
         // Route::put('/perjalanan/{id}/status', [PerjalananController::class, 'updateStatus'])->name('updateStatus');
-
 
         // Data Tables Report Report
 
@@ -75,7 +76,7 @@ Route::prefix('dashboard')
         // Route::get('laporanarsipperjalananpdf/filter={filter}', [PerjalananController::class, 'laporanarsipperjalananpdf'])->name('laporanarsipperjalananpdf');
         Route::get('laporannya/laporanarsipperjalanan', [PerjalananController::class, 'cetakarsipertanggal'])->name('laporanarsipperjalanan');
         Route::get('laporanarsipperjalanan', [PerjalananController::class, 'filterdatearsip'])->name('arsipperjalanan');
-        Route::get('laporanarsipperjalananpdf/filter={filter}', [PerjalananController::class, 'laporanarsipperjalananpdf'])->name('laporanarsippdf');
+        Route::get('laporanarsipperjalananpdf/filter={filter}', [PerjalananController::class, 'laporanarsipperjalananpdf'])->name('laporanarsipperjalananpdf');
 
         // Pendapatan
         // Route::get('pendapatanpdf', [PendapatanController::class, 'pendapatanpdf'])->name('pendapatanpdf');
@@ -99,17 +100,20 @@ Route::prefix('dashboard')
         Route::get('laporanpenyetopan', [PenyetopanController::class, 'filterdatepenyetopan'])->name('laporanpenyetopan');
         Route::get('laporanpenyetopanpdf/filter={filter}', [PenyetopanController::class, 'laporanpenyetopanpdf'])->name('laporanpenyetopanpdf');
 
-
+        //Kerugian
+        Route::get('laporannya/laporankerugian', [KerugianController::class, 'cetakkerugianpertanggal'])->name('laporankerugian');
+        Route::get('laporankerugian', [KerugianController::class, 'filterdatekerugian'])->name('laporankerugian');
+        Route::get('laporankerugianpdf/filter={filter}', [KerugianController::class, 'laporankerugianpdf'])->name('laporankerugianpdf');
 
         //status
-        Route::put('/pengajuan/{id}/status', [PengajuanController::class, 'updateStatus'])->name('updateStatus');
-        Route::put('/alokasi/{id}/status', [PengajuanController::class, 'updateStatusAlokasi'])->name('updateStatusAlokasi');
-        Route::put('/update-status/{id}', [PerjalananController::class, 'updateStatus'])->name('updateStatusperjalanan');
+        Route::put('/pengajuan/{id}/status', [PengajuanController::class, 'updateStatusPengajuan'])->name('updateStatusPengajuan');
+        Route::put('/alokasi/{id}/status', [AlokasiController::class, 'updateStatusAlokasi'])->name('updateStatusAlokasi');
+        Route::put('/perjalanan/{id}/status', [PerjalananController::class, 'updateStatusperjalanan'])->name('updateStatusperjalanan');
+        Route::put('/penyetopan/{id}/status', [PenyetopanController::class, 'updateStatuspenyetopan'])->name('updateStatuspenyetopan');
 
-        // Route to show verified surat data
-        Route::get('suratverif', [PengajuanController::class, 'tampilanterverifikasi'])->name('suratverif');
-        Route::get('suratverif/search', [PengajuanController::class, 'terverifikasipencariannomorsurat'])->name('suratverif.search');
-        Route::get('suratverif/pdf', [PengajuanController::class, 'terverifikasipdf'])->name('laporansuratverifpdf');
+        // Pernama Daerah
+        Route::get('laporannya/pernama', [PengajuanController::class, 'pernama'])->name('pernama');
+        Route::get('/pernamapdf', [PengajuanController::class, 'cetakPernamaPdf'])->name('pernamapdf');
     });
 
 // Login Register

@@ -9,7 +9,7 @@ class Kerugian extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nosurat','id_daerah','tanggal','jumlahkerugian','keterangan'
+        'nosurat','id_daerah','tanggal','jumlahkerugian','keterangan','penanggungjawab'
     ];
 
     public function masterdaerah()
