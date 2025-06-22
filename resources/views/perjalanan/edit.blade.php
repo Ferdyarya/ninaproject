@@ -37,16 +37,6 @@
                                     @method('PUT')
 
                                     <div class="form-group mb-3">
-                                        <label for="id_masterpegawai">Nama Pegawai</label>
-                                        <select class="form-select" name="id_masterpegawai" id="judulbuku" style="border-radius: 8px;" data-placeholder="Pilih Nama Pegawai">
-                                            <option></option>
-                                            @foreach ($masterpegawai as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group mb-3">
                                         <label for="id_masterdaerah">Daerah Tujuan</label>
                                         <select class="form-select" name="id_masterdaerah" id="daerah" style="border-radius: 8px;" data-placeholder="Pilih Nama Dearah">
                                             <option></option>

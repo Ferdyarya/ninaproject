@@ -52,6 +52,7 @@
                                         <th class="px-6 py-2">Daerah</th>
                                         <th class="px-6 py-2">Nominal</th>
                                         <th class="px-6 py-2">Keperluan</th>
+                                        <th class="px-6 py-2">File</th>
                                         <th class="px-6 py-2">Status</th>
                                         <th class="px-6 py-2">Action</th>
                                     </tr>
@@ -68,6 +69,17 @@
                                             <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
                                             <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
                                             <td class="px-6 py-2">{{ $item->keperluan }}</td>
+                                            <td class="border textmid">
+                                                @if ($item->filepengajuan)
+                                                    <!-- Periksa nama kolom yang sesuai -->
+                                                    <a href="{{ asset('filepengajuan/' . $item->filepengajuan) }}"
+                                                        class="btn btn-primary" download>
+                                                        Download
+                                                    </a>
+                                                @else
+                                                    Tidak ada file
+                                                @endif
+                                            </td>
                                             <td class="px-6 py-2">
                                                 <!-- Display status as a badge if it's already set -->
                                                 @if($item->status == 'Terverifikasi')

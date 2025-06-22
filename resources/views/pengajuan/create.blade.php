@@ -64,6 +64,12 @@
                                           <div class="invalid-feedback">{{ $message }}</div>
                                       @enderror
                                   </div>
+
+                                  <div class="form-group">
+                                      <label for="exampleInputPassword1">Masukan File Pengajuan</label>
+                                      <input type="file" name="filepengajuan" class="form-control"
+                                          placeholder="Masukan File Pengajuan">
+                                  </div>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                               </div>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('id_daerah');
             $table->string('nominal');
+            $table->string('filepengajuan');
             $table->string('keperluan');
             $table->string('tanggal');
             $table->timestamps();

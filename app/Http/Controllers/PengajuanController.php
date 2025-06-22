@@ -41,14 +41,13 @@ class PengajuanController extends Controller
 
     public function store(Request $request)
 {
-    $data = $request->all();
-
     // Validasi permintaan
     $request->validate([
         'id_daerah' => 'required|string',
         'keperluan' => 'required|string',
         'tanggal' => 'required|date',
         'nominal' => 'required|numeric',
+        'filepengajuan' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
     ]);
 
     // Generate kode surat
@@ -57,10 +56,19 @@ class PengajuanController extends Controller
     // Persiapkan data untuk disimpan
     $data = $request->only(['id_daerah', 'tanggal', 'nominal', 'keperluan']);
     $data['nosurat'] = $nosurat;
+
+    if ($request->hasFile('filepengajuan')) {
+        $file = $request->file('filepengajuan');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('filepengajuan'), $fileName);
+        $data['filepengajuan'] = $fileName;
+    }
+
     Pengajuan::create($data);
 
     return redirect()->route('pengajuan.index')->with('success', 'Data telah ditambahkan');
 }
+
 
 
 

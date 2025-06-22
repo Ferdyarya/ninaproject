@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use PDF;
 use App\Models\Perjalanan;
+use App\Models\Partisipan;
+use App\Models\Anggaran;
 use App\Models\Masterdaerah;
 use Illuminate\Http\Request;
 use App\Models\Masterpegawai;
@@ -22,13 +24,22 @@ class PerjalananController extends Controller
             $perjalanan = Perjalanan::paginate(10);
         }
 
+        // $perjalanan = Perjalanan::with('partisipan', 'anggaran')->findOrFail(5);
+
         return view('perjalanan.index', [
             'perjalanan' => $perjalanan,
         ]);
     }
 
+    public function detail($id)
+    {
+        $perjalanan = Perjalanan::with(['partisipan.masterpegawai', 'anggaran'])->findOrFail($id);
+        return view('perjalanan.detail', compact('perjalanan'));
+    }
+
     public function create()
     {
+        // $masterpegawai = Masterpegawai::all();
         $masterpegawai = Masterpegawai::all();
         $masterdaerah = Masterdaerah::all();
 
@@ -41,26 +52,35 @@ class PerjalananController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi permintaan untuk memastikan 'id_daerah' ada
-        $request->validate([
-            'id_daerah' => 'required|string',
-            'id_pegawai' => 'required|string',
-            'deskripsi' => 'required|string',
-            'perihal' => 'required|string',
-            'tanggal' => 'required|date',
-        ]);
-
         // Generate kode surat
         $nosurat = $this->generatenosurat();
 
-        // Ambil data dari request dan tambahkan kode surat
-        $data = $request->only(['id_daerah', 'id_pegawai', 'deskripsi', 'perihal', 'tanggal']);
-        $data['nosurat'] = $nosurat;
+        // Ambil data langsung dari request (tanpa only)
+        $data = [
+            'id_daerah' => $request->id_daerah,
+            'id_masterpegawai' => $request->id_masterpegawai,
+            'deskripsi' => $request->deskripsi,
+            'perihal' => $request->perihal,
+            'tanggal' => $request->tanggal,
+            'nosurat' => $nosurat,
+        ];
 
-        // Menyimpan data ke database
-        Perjalanan::create($data);
+        $perjalanan = Perjalanan::create($data);
 
-        // Redirect ke halaman index dengan pesan sukses
+        foreach ($request->partisipan ?? [] as $p) {
+            Partisipan::create([
+                'id_masterpegawai' => $p['id_masterpegawai'],
+                'id_perjalanan' => $perjalanan->id,
+            ]);
+        }
+
+        foreach ($request->anggaran ?? [] as $p) {
+            Anggaran::create([
+                'id_perjalanan' => $perjalanan->id,
+                'keterangan' => $p['keterangan'],
+                'anggaran' => $p['anggaran'],
+            ]);
+        }
         return redirect()->route('perjalanan.index')->with('success', 'Data telah ditambahkan');
     }
 
@@ -113,6 +133,8 @@ class PerjalananController extends Controller
     public function destroy(Perjalanan $perjalanan)
     {
         $perjalanan->delete();
+        $perjalanan->partisipan()->delete();
+        $perjalanan->anggaran()->delete();
         return redirect()->route('perjalanan.index')->with('success', 'Data Telah dihapus');
     }
     // Tampilan Surat Arsip

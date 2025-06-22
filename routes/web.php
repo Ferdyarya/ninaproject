@@ -62,6 +62,10 @@ Route::prefix('dashboard')
         Route::resource('kerugian', KerugianController::class);
         Route::get('suratarsip', [PerjalananController::class, 'suratArsip'])->name('suratarsip');
 
+        // Data Tables Detail
+        Route::get('/perjalanan/{id}/detail', [PerjalananController::class, 'detail'])->name('perjalanan.detail');
+
+
         // Route::put('/perjalanan/{id}/status', [PerjalananController::class, 'updateStatus'])->name('updateStatus');
 
         // Data Tables Report Report

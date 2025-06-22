@@ -61,7 +61,13 @@
                                         <input value="{{ $item->keperluan }}" type="text" name="keperluan" class="form-control" placeholder="Masukan Keperluan" required>
                                     </div>
 
-
+                                    <div class="form-group">
+                                        <label for="filepengajuan">File Surat</label>
+                                        <input type="file" name="filepengajuan" class="form-control">
+                                        @if($item->filepengajuan)
+                                            <p>File saat ini: <a href="{{ url('filepengajuan/'.$item->filepengajuan) }}" target="_blank">{{ $item->filepengajuan }}</a></p>
+                                        @endif
+                                    </div>
 
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
