@@ -9,7 +9,7 @@ class Pengajuan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nosurat','id_daerah','nominal','tanggal','status','keperluan'
+        'nosurat','id_daerah','nominal','tanggal','status','keperluan','filepengajuan'
     ];
 
     public function masterdaerah()

@@ -73,7 +73,7 @@
                                     <th class="px-6 py-2">Tanggal Perjalanan</th>
                                     <th class="px-6 py-2">Arah Tujuan</th>
                                     <th class="px-6 py-2">Alamat Tujuan</th>
-                                    <th class="px-6 py-2">Pegawai Berangkat</th>
+                                    {{-- <th class="px-6 py-2">Pegawai Berangkat</th> --}}
                                     <th class="px-6 py-2">Deskripsi</th>
                                     <th class="px-6 py-2">Perihal</th>
                                 </tr>
@@ -89,7 +89,7 @@
                                         <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                                         <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
                                         <td class="px-6 py-2">{{ $item->masterdaerah->alamat }}</td>
-                                        <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
+                                        {{-- <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td> --}}
                                         <td class="px-6 py-2">{{ $item->deskripsi }}</td>
                                         <td class="px-6 py-2">{{ $item->perihal }}</td>
                                         {{-- <td>
