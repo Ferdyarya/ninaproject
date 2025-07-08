@@ -35,12 +35,13 @@
                             <input type="text" id="search" name="search" class="form-control" placeholder="Search">
                         </form>
                     </div>
-                    {{-- Button Export PDF --}}
+                    @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                     <div class="col-auto">
                         <a href="{{ route('perjalanan.create')}}" class="btn btn-success">
                             Tambah Data
                         </a>
                     </div>
+                    @endif
                 </div>
                 <div>
                     <table class="table table-hover">
@@ -55,7 +56,9 @@
                                 <th class="px-6 py-2">Deskripsi</th>
                                 <th class="px-6 py-2">Perihal</th>
                                 <th class="px-6 py-2">Status</th>
+                                @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                 <th class="px-6 py-2">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -87,6 +90,7 @@
                                         </form>
                                     @endif
                                 </td>
+                                @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                 <td class="px-6 py-2">
                                     <a href="{{ route('perjalanan.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                     <form action="{{ route('perjalanan.destroy', $item->id) }}" method="POST" style="display:inline;">
@@ -98,6 +102,7 @@
                                                     Detail
                                                 </a>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

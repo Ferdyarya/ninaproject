@@ -55,7 +55,7 @@
                       <span class="hide-menu">Dashboard</span>
                     </a>
                   </li>
-
+                  @if (Auth::user()->hakakses('admin'))
                   <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">MASTER DATA</span>
@@ -76,11 +76,11 @@
                       <span class="hide-menu">Data Daerah Dinas</span>
                     </a>
                   </li>
+                  @endif
                   <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Data Table</span>
                 </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('perjalanan.index') }}" aria-expanded="false">
                         <span>
@@ -89,6 +89,7 @@
                         <span class="hide-menu">Surat Perjalanan dinas</span>
                     </a>
                 </li>
+                @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('suratarsip') }}" aria-expanded="false">
                         <span>
@@ -97,6 +98,8 @@
                         <span class="hide-menu">Arsip Surat perjalanan dinas</span>
                     </a>
                 </li>
+                @endif
+                 @if (Auth::user()->hakakses('pimpinan')|| Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('pengajuan.index') }}" aria-expanded="false">
                         <span>
@@ -105,6 +108,7 @@
                         <span class="hide-menu">Surat Dinas Pengajuan Dana</span>
                     </a>
                 </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('pendapatan.index') }}" aria-expanded="false">
                         <span>
@@ -113,6 +117,7 @@
                         <span class="hide-menu">Surat Dinas Pendapatan Daerah</span>
                     </a>
                 </li>
+                @endif
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('alokasi.index') }}" aria-expanded="false">
                         <span>
@@ -129,6 +134,7 @@
                         <span class="hide-menu">Surat Dinas Penyetopan Dana Daerah</span>
                     </a>
                 </li>
+                @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('kerugian.index') }}" aria-expanded="false">
                         <span>
@@ -137,17 +143,9 @@
                         <span class="hide-menu">Surat Dinas Kerugian Dana Daerah</span>
                     </a>
                 </li>
-
-
-                {{-- <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('suratdisposisi.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-mail"></i>
-                        </span>
-                        <span class="hide-menu">Surat Status</span>
-                    </a>
-                </li> --}}
-
+                @endif
+                
+                 @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                   <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Report</span>
@@ -216,6 +214,7 @@
                       <span class="hide-menu">Lap Surat Kerugian Dana Daerah</span>
                     </a>
                   </li>
+                  @endif
                 </ul>
               </nav>
               <!-- End Sidebar navigation -->

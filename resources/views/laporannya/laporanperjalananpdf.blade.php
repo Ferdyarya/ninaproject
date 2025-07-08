@@ -123,13 +123,11 @@
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
 
-    <div>
-        <p class="signature">(Pimpinan)</p>
-        <br>
-        <br>
-        <br>
-        <br>
-        <p style="text-align: right; margin-top: 8px;"><b>H. SUBHAN YAUMIL, S.E.,M.SI</b></p>
+    <div style="text-align: right; margin-top: 30px; margin-right: 50px;">
+        <p class="signature" style="position: static; text-align: right;">(KEPALA BAPENDA)</p>
+        <img src="{{ public_path('assets/QRCODE.png') }}" alt="Tanda Tangan" style="width: 80px; margin-top: 5px;">
+        <div style="height: 20px;"></div>
+        <p style="text-align: right; margin-top: 8px;"><b>H. SUBHAN YAUMIL, S.E., M.SI</b></p>
     </div>
 </body>
 

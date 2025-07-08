@@ -13,23 +13,19 @@ use App\Models\Masterpegawai;
 class PerjalananController extends Controller
 {
     public function index(Request $request)
-    {
-        if ($request->has('search')) {
-            $perjalanan = Perjalanan::whereHas('masterpegawai', function ($query) use ($request) {
-                $query->where('nama', 'LIKE', '%' . $request->search . '%');
-            })
-                ->orWhere('nosurat', 'LIKE', '%' . $request->search . '%')
-                ->paginate(10);
-        } else {
-            $perjalanan = Perjalanan::paginate(10);
-        }
-
-        // $perjalanan = Perjalanan::with('partisipan', 'anggaran')->findOrFail(5);
-
-        return view('perjalanan.index', [
-            'perjalanan' => $perjalanan,
-        ]);
+{
+    if ($request->has('search')) {
+        $perjalanan = Perjalanan::where('nosurat', 'LIKE', '%' . $request->search . '%')
+            ->paginate(10);
+    } else {
+        $perjalanan = Perjalanan::paginate(10);
     }
+
+    return view('perjalanan.index', [
+        'perjalanan' => $perjalanan,
+    ]);
+}
+
 
     public function detail($id)
     {

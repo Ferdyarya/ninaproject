@@ -71,7 +71,7 @@
                 <td class="tengah">
                     <h4>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</h4>
                     <p>Jl. Raya Dharma Praja
-                         Pemprov Kalsel, Trikora
+                        Pemprov Kalsel, Trikora
                         Banjarbaru, Kalimantan Selatan
                         Kode Pos 70700</p>
                 </td>
@@ -80,7 +80,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Surat Pengajuan Dana Daerah</h5>
+        <h5 class="mt-4">Rekap Laporan Surat Alokasi Dana Daerah</h5>
     </center>
 
 
@@ -116,10 +116,12 @@
                     <td class="px-6 py-2">{{ $item->keperluan }}</td>
                     <td class="px-6 py-2">{{ $item->penanggungjawab }}</td>
                     <td class="px-6 py-2">
-                        @if($item->status == 'Terverifikasi')
-                            <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
+                        @if ($item->status == 'Terverifikasi')
+                            <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
+                            <!-- Green for verified -->
                         @elseif($item->status == 'Ditolak')
-                            <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                            <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
+                            <!-- Red/orange for rejected -->
                         @endif
                     </td>
                     <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
@@ -140,14 +142,11 @@
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
 
-    <div>
-        <p class="signature">(Pimpinan)</p>
-        <br>
-        <br>
-        <br>
-        <br>
-        <p style="text-align: right; margin-top: 8px;"><b>H. SUBHAN YAUMIL, S.E.,M.SI</b></p>
+    <div style="text-align: right; margin-top: 30px; margin-right: 50px;">
+        <p class="signature" style="position: static; text-align: right;">(KEPALA BAPENDA)</p>
+        <img src="{{ public_path('assets/QRCODE.png') }}" alt="Tanda Tangan" style="width: 80px; margin-top: 5px;">
+        <div style="height: 20px;"></div>
+        <p style="text-align: right; margin-top: 8px;"><b>H. SUBHAN YAUMIL, S.E., M.SI</b></p>
     </div>
 </body>
-
 </html>

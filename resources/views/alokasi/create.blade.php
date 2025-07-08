@@ -52,7 +52,7 @@
                                 </div>
                                   <div class="form-group">
                                       <label for="nominal">Nominal</label>
-                                      <input  type="number" name="nominal" class="form-control @error('nominal') is-invalid @enderror" id="nominal" placeholder="Masukkan Tujuan Surat" value="{{ old('nominal') }}" required>
+                                      <input  type="number" name="nominal" class="form-control @error('nominal') is-invalid @enderror" id="nominal" placeholder="Masukkan Nominal" value="{{ old('nominal') }}" required>
                                       @error('nominal')
                                           <div class="invalid-feedback">{{ $message }}</div>
                                       @enderror

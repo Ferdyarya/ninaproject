@@ -37,7 +37,7 @@
 
 
                     <div class="container">
-                        <form action="{{ route('laporanpendapatan') }}" method="GET" class="row">
+                        <form action="{{ route('laporanpendapatanfilter') }}" method="GET" class="row">
                             <div class="col-md-3">
                                 <label for="dari">Start Date:</label>
                                 <input type="date" id="dari" name="dari" class="form-control">

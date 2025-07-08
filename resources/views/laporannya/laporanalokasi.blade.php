@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Laporan Data Surat Pengajuan Dana Daerah</h3>
+                                <h3 class="m-0">Laporan Data Surat Alokasi Dana Daerah</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Laporan Data Surat Pengajuan Dana Daerah</li>
+                                    <li class="breadcrumb-item active">Laporan Data Surat Alokasi Dana Daerah</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->

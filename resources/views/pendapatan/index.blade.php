@@ -35,12 +35,13 @@
                                         placeholder="Search">
                                 </form>
                             </div>
-                            {{-- Button Export PDF --}}
+                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                             <div class="col-auto">
                                 <a href="{{ route('pendapatan.create') }}" class="btn btn-success">
                                     Tambah Data
                                 </a>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <table class="table table-hover">
@@ -53,7 +54,9 @@
                                         <th class="px-6 py-2">Nominal</th>
                                         <th class="px-6 py-2">Keterangan Dana</th>
                                         <th class="px-6 py-2">File Surat</th>
+                                        @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                         <th class="px-6 py-2">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,6 +82,7 @@
                                                     Tidak ada file
                                                 @endif
                                             </td>
+                                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                             <td>
                                                 <a href="{{ route('pendapatan.edit', $item->id) }}" class="btn btn-primary">
                                                     Edit
@@ -90,6 +94,7 @@
                                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                                 </form>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

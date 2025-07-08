@@ -85,13 +85,13 @@ Route::prefix('dashboard')
         // Pendapatan
         // Route::get('pendapatanpdf', [PendapatanController::class, 'pendapatanpdf'])->name('pendapatanpdf');
         Route::get('laporannya/laporanpendapatan', [PendapatanController::class, 'cetakpendapatanpertanggal'])->name('laporanpendapatan');
-        Route::get('laporanpendapatan', [PendapatanController::class, 'filterdatependapatan'])->name('pendapatan');
+        Route::get('laporanpendapatan', [PendapatanController::class, 'filterdatependapatan'])->name('laporanpendapatanfilter');
         Route::get('laporanpendapatanpdf/filter={filter}', [PendapatanController::class, 'laporanpendapatanpdf'])->name('laporanpendapatanpdf');
 
         // Pengajuan
         // Route::get('pengajuanpdf', [PengajuanController::class, 'pengajuanpdf'])->name('pengajuanpdf');
         Route::get('laporannya/laporanpengajuan', [PengajuanController::class, 'cetakpengajuanpertanggal'])->name('laporanpengajuan');
-        Route::get('laporanpengajuan', [PengajuanController::class, 'filterdatepengajuan'])->name('pengajuan');
+        Route::get('laporanpengajuan', [PengajuanController::class, 'filterdatepengajuan'])->name('laporanpengajuanfilter');
         Route::get('laporanpengajuanpdf/filter={filter}', [PengajuanController::class, 'laporanpengajuanpdf'])->name('laporanpengajuanpdf');
 
         //Alokasi

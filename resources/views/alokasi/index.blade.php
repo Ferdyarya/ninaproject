@@ -35,12 +35,13 @@
                                         placeholder="Search">
                                 </form>
                             </div>
-                            {{-- Button Export PDF --}}
+                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                             <div class="col-auto">
                                 <a href="{{ route('alokasi.create') }}" class="btn btn-success">
                                     Tambah Data
                                 </a>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <table class="table table-hover">
@@ -54,7 +55,9 @@
                                         <th class="px-6 py-2">Keperluan</th>
                                         <th class="px-6 py-2">Penanggung Jawab</th>
                                         <th class="px-6 py-2">Status</th>
+                                        @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                         <th class="px-6 py-2">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,10 +75,14 @@
                                             <td class="px-6 py-2">{{ $item->penanggungjawab }}</td>
                                             <td class="px-6 py-2">
                                                 @if($item->status == 'Terverifikasi')
-                                                    <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
+                                                <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
                                                 @elseif($item->status == 'Ditolak')
-                                                    <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                                                <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
                                                 @else
+                                                @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
+                                                <span class="p-2 mb-2 bg-warning text-black rounded">Tunggu Verifikasi</span>
+                                                @endif
+                                                @if (Auth::user()->hakakses('pimpinan'))
                                                     <form action="{{ route('updateStatusAlokasi', $item->id) }}" method="POST">
                                                         @csrf
                                                         @method('PUT')
@@ -87,6 +94,8 @@
                                                     </form>
                                                 @endif
                                             </td>
+                                            @endif
+                                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                             <td>
                                                 <a href="{{ route('alokasi.edit', $item->id) }}" class="btn btn-primary">
                                                     Edit
@@ -98,6 +107,7 @@
                                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                                 </form>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

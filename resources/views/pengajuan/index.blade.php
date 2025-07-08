@@ -35,12 +35,13 @@
                                         placeholder="Search">
                                 </form>
                             </div>
-                            {{-- Button Export PDF --}}
+                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                             <div class="col-auto">
                                 <a href="{{ route('pengajuan.create') }}" class="btn btn-success">
                                     Tambah Data
                                 </a>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <table class="table table-hover">
@@ -54,7 +55,9 @@
                                         <th class="px-6 py-2">Keperluan</th>
                                         <th class="px-6 py-2">File</th>
                                         <th class="px-6 py-2">Status</th>
+                                        @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                         <th class="px-6 py-2">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -81,13 +84,15 @@
                                                 @endif
                                             </td>
                                             <td class="px-6 py-2">
-                                                <!-- Display status as a badge if it's already set -->
                                                 @if($item->status == 'Terverifikasi')
-                                                    <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
+                                                <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
                                                 @elseif($item->status == 'Ditolak')
-                                                    <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                                                <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
                                                 @else
-                                                    <!-- Form for selecting status if it's not set to 'Terverifikasi' or 'Ditolak' -->
+                                                @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
+                                                <span class="p-2 mb-2 bg-warning text-black rounded">Tunggu Verifikasi</span>
+                                                @endif
+                                                @if (Auth::user()->hakakses('pimpinan'))
                                                     <form action="{{ route('updateStatusPengajuan', $item->id) }}" method="POST">
                                                         @csrf
                                                         @method('PUT') <!-- Use PUT method to update the record -->
@@ -100,6 +105,8 @@
                                                     </form>
                                                 @endif
                                             </td>
+                                            @endif
+                                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                             <td>
                                                 <a href="{{ route('pengajuan.edit', $item->id) }}" class="btn btn-primary">
                                                     Edit
@@ -111,6 +118,7 @@
                                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                                 </form>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

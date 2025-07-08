@@ -39,11 +39,18 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('2'),
             'roles' => 'admin'
         ]);
+        User::create([
+            'name' => 'Nina',
+            'email' => 'nina@gmail.com',
+            'password' => bcrypt('2'),
+            'roles' => 'admin'
+        ]);
 
         Masterdaerah::create([
             'namadaerah' => 'Denpasar',
             'alamat' => 'Bali',
         ]);
+        
         Masterpegawai::create([
             'nama' => 'Robi',
             'email' => 'robi@gmail.com',

@@ -71,7 +71,7 @@
                 <td class="tengah">
                     <h4><b>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</b></h4>
                     <p>Jl. Raya Dharma Praja
-                         Pemprov Kalsel, Trikora
+                        Pemprov Kalsel, Trikora
                         Banjarbaru, Kalimantan Selatan
                         Kode Pos 70700</p>
                 </td>
@@ -95,7 +95,7 @@
                 <th class="px-6 py-2">Tanggal laporanperjalanan</th>
                 <th class="px-6 py-2">Arah Tujuan</th>
                 <th class="px-6 py-2">Alamat Tujuan</th>
-                <th class="px-6 py-2">Pegawai Berangkat</th>
+                {{-- <th class="px-6 py-2">Pegawai Berangkat</th> --}}
                 <th class="px-6 py-2">Deskripsi</th>
                 <th class="px-6 py-2">Perihal</th>
                 <th class="px-6 py-2">Status</th>
@@ -113,7 +113,7 @@
                     <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                     <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
                     <td class="px-6 py-2">{{ $item->masterdaerah->alamat }}</td>
-                    <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
+                    {{-- <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td> --}}
                     <td class="px-6 py-2">{{ $item->deskripsi }}</td>
                     <td class="px-6 py-2">{{ $item->perihal }}</td>
                     <td class="px-6 py-2">
@@ -131,14 +131,13 @@
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
 
-    <div>
-        <p class="signature">(Pimpinan)</p>
-        <br>
-        <br>
-        <br>
-        <br>
-        <p style="text-align: right; margin-top: 8px;"><b>H. SUBHAN YAUMIL, S.E.,M.SI</b></p>
+    <div style="text-align: right; margin-top: 30px; margin-right: 50px;">
+        <p class="signature" style="position: static; text-align: right;">(KEPALA BAPENDA)</p>
+        <img src="{{ public_path('assets/QRCODE.png') }}" alt="Tanda Tangan" style="width: 80px; margin-top: 5px;">
+        <div style="height: 20px;"></div>
+        <p style="text-align: right; margin-top: 8px;"><b>H. SUBHAN YAUMIL, S.E., M.SI</b></p>
     </div>
+
 </body>
 
 </html>

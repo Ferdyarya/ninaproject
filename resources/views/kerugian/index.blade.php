@@ -35,12 +35,13 @@
                                         placeholder="Search">
                                 </form>
                             </div>
-                            {{-- Button Export PDF --}}
+                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                             <div class="col-auto">
                                 <a href="{{ route('kerugian.create') }}" class="btn btn-success">
                                     Tambah Data
                                 </a>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <table class="table table-hover">
@@ -53,7 +54,9 @@
                                         <th class="px-6 py-2">Jumlah Kerugian</th>
                                         <th class="px-6 py-2">Keterangan</th>
                                         <th class="px-6 py-2">Penanggung Jawab</th>
+                                        @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                         <th class="px-6 py-2">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,6 +72,7 @@
                                             <td class="px-6 py-2">Rp. {{ number_format($item->jumlahkerugian) }}</td>
                                             <td class="px-6 py-2">{{ $item->keterangan }}</td>
                                             <td class="px-6 py-2">{{ $item->penanggungjawab }}</td>
+                                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                             <td>
                                                 <a href="{{ route('kerugian.edit', $item->id) }}" class="btn btn-primary">
                                                     Edit
@@ -80,6 +84,7 @@
                                                     <button type="submit" class="btn btn-danger">Hapus</button>
                                                 </form>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
