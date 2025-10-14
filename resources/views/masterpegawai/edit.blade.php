@@ -32,6 +32,15 @@
                                         <input value="{{ $item->nama }}" type="nama" name="nama" class="form-control"
                                             id="exampleInputPassword1" placeholder="Masukan Nama" required>
                                      </div>
+                                     <div class="form-group mb-3">
+                                        <label for="id_pangkat">Jabatan</label>
+                                        <select class="form-select" data-placeholder="Pilih Jabatan" name="id_pangkat" id="judulbuku" style="border-radius: 8px;">
+                                            <option></option>
+                                            @foreach ($masterpangkat as $item)
+                                                <option value="{{ $item->id }}">{{ $item->pangkat }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                       <div class="form-group">
                                         <label for="email">Email</label>
                                         <input value="{{ $item->email }}" type="email" name="email" class="form-control"
@@ -100,5 +109,17 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+$( '#judulbuku' ).select2( {
+theme: "bootstrap-5",
+width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+placeholder: $( this ).data( 'placeholder' ),
+} );
 </script>
 @endsection

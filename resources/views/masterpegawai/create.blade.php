@@ -43,6 +43,15 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="form-group mb-3">
+                                    <label for="id_pangkat">Jabatan</label>
+                                    <select class="form-select" name="id_pangkat" id="judulbuku" data-placeholder="Pilih Jabatan" style="border-radius: 8px;">
+                                        <option></option>
+                                        @foreach ($masterpangkat as $item)
+                                            <option value="{{ $item->id }}">{{ $item->pangkat }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                     <div class="form-group">
                                           <label for="email">Email</label>
                                           <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email"

@@ -71,7 +71,7 @@
                 <td class="tengah">
                     <h4><b>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</b></h4>
                     <p>Jl. Raya Dharma Praja
-                         Pemprov Kalsel, Trikora
+                        Pemprov Kalsel, Trikora
                         Banjarbaru, Kalimantan Selatan
                         Kode Pos 70700</p>
                 </td>
@@ -87,38 +87,89 @@
 
     <br>
 
-    <table class='table table-bordered' id="warnatable">
-        <thead>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
             <tr>
-                <th class="px-6 py-2">No</th>
-                <th class="px-6 py-2">Nomor Surat</th>
-                <th class="px-6 py-2">Tanggal Perjalanan</th>
-                <th class="px-6 py-2">Arah Tujuan</th>
-                <th class="px-6 py-2">Alamat Tujuan</th>
-                {{-- <th class="px-6 py-2">Pegawai Berangkat</th> --}}
-                <th class="px-6 py-2">Deskripsi</th>
-                <th class="px-6 py-2">Perihal</th>
+                <th>No</th>
+                <th>Pegawai Berangkat</th>
+                <th>Rincian Biaya Jabatan</th>
+                <th>Rincian Anggaran</th>
             </tr>
         </thead>
         <tbody>
-            {{-- @php
-            $grandTotal = 0;
-            @endphp --}}
+            @foreach ($laporanperjalanan as $index => $item)
+                @php
+                    $totalJabatan = 0;
+                    $totalAnggaran = 0;
+                    $budgetPerjalanan = $item->masterdaerah->budgetperjalanan ?? 0;
+                @endphp
 
-            @foreach ($laporanperjalanan as $item)
                 <tr>
-                    <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                    <td class="px-6 py-2">{{ $item->nosurat }}</td>
-                    <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
-                    <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
-                    <td class="px-6 py-2">{{ $item->masterdaerah->alamat }}</td>
-                    {{-- <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td> --}}
-                    <td class="px-6 py-2">{{ $item->deskripsi }}</td>
-                    <td class="px-6 py-2">{{ $item->perihal }}</td>
+                    <td>{{ $index + 1 }}</td>
+
+                    {{-- Pegawai Berangkat --}}
+                    <td>
+                        <ul class="list-unstyled mb-0">
+                            @foreach ($item->partisipan as $p)
+                                <li><strong>{{ $p->masterpegawai->nama ?? 'N/A' }}</strong></li>
+                            @endforeach
+                        </ul>
+                    </td>
+
+                    {{-- Biaya Jabatan --}}
+                    <td>
+                        <ul class="list-unstyled mb-0">
+                            @foreach ($item->partisipan as $p)
+                                @php
+                                    $biaya = $p->masterpegawai->masterpangkat->biaya ?? 0;
+                                    $totalJabatan += $biaya;
+                                @endphp
+                                <li>Rp{{ number_format($biaya, 0, ',', '.') }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+
+                    {{-- Rincian Anggaran --}}
+                    <td>
+                        <ul class="list-unstyled mb-0">
+                            @foreach ($item->anggaran as $a)
+                                @php
+                                    $totalAnggaran += $a->anggaran;
+                                @endphp
+                                <li>{{ $a->keterangan }} = Rp{{ number_format($a->anggaran, 0, ',', '.') }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                </tr>
+
+                {{-- Total Per Item --}}
+                <tr class="table-secondary">
+                    <td colspan="2" class="text-center"><strong>TOTAL BIAYA JABATAN</strong></td>
+                    <td colspan="2">Rp{{ number_format($totalJabatan, 0, ',', '.') }}</td>
+                </tr>
+                <tr class="table-secondary">
+                    <td colspan="2" class="text-center"><strong>TOTAL ANGGARAN</strong></td>
+                    <td colspan="2">Rp{{ number_format($totalAnggaran, 0, ',', '.') }}</td>
+                </tr>
+                <tr class="table-info">
+                    <td colspan="2" class="text-center"><strong>BUDGET PERJALANAN</strong></td>
+                    <td colspan="2">Rp{{ number_format($budgetPerjalanan, 0, ',', '.') }}</td>
+                </tr>
+                <tr class="table-success text-white">
+                    <td colspan="2" class="text-center"><strong>GRAND TOTAL KESELURUHAN</strong></td>
+                    <td colspan="2">
+                        <strong>Rp{{ number_format($totalJabatan + $totalAnggaran + $budgetPerjalanan, 0, ',', '.') }}</strong>
+                    </td>
+                </tr>
+
+                {{-- Separator antar perjalanan --}}
+                <tr>
+                    <td colspan="4" class="bg-light"></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>

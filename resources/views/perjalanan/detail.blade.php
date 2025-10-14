@@ -1,102 +1,144 @@
 @extends('layout.admin')
 @push('css')
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .table th, .table td {
+        vertical-align: middle !important;
+    }
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    .grand-total {
+        background-color: #f8f9fa;
+        border-top: 2px solid #343a40;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .section-title {
+        font-weight: 600;
+        color: #343a40;
+        border-left: 4px solid #28a745;
+        padding-left: 10px;
+        margin-top: 20px;
+    }
+
+    .summary-box {
+        background: #f0f7f3;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .summary-box h5 {
+        color: #155724;
+        font-weight: 600;
+    }
+
+    .summary-box p {
+        margin-bottom: 4px;
+    }
+</style>
 @endpush
+
 @section('content')
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <div class="content-wrapper">
-                    <!-- Content Header (Page header) -->
-                    <div class="content-header">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0">Detail Data Surat Perjalanan Dinas</h1>
-                            </div>
-                            <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Detail Data Surat Perjalanan Dinas</li>
-                                </ol>
-                            </div>
+<div class="container-fluid">
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <div class="content-wrapper">
+                <div class="content-header mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-success">Detail Data Surat Perjalanan Dinas</h1>
                         </div>
-                    </div>
-
-                    <div class="container">
-                        {{-- search --}}
-                        <div class="row g-3 align-items-center mb-4">
-                            {{-- <div class="col-auto">
-                                <form action="perjalanan" method="GET">
-                                    <input type="text" id="search" name="search" class="form-control"
-                                        placeholder="Search">
-                                </form>
-                            </div> --}}
-                            {{-- Button Export PDF --}}
-                            {{-- <div class="col-auto">
-                                <a href="{{ route('perjalanan.create') }}" class="btn btn-success">
-                                    Tambah Data
-                                </a>
-                            </div> --}}
+                        <div class="col-sm-6 text-right">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Detail Data</li>
+                            </ol>
                         </div>
-                        <div>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="px-6 py-2">No</th>
-                                        <th class="px-6 py-2">Pegawai Berangkat</th>
-                                        <th class="px-6 py-2">Anggaran</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="px-6 py-2">1</td>
-                                        <td class="px-6 py-2">
-                                            <ul>
-                                                @foreach ($perjalanan->partisipan as $p)
-                                                    <li>{{ $p->masterpegawai->nama ?? 'N/A' }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-                                        <td class="px-6 py-2">
-                                            <ul>
-                                                @foreach ($perjalanan->anggaran as $a)
-                                                    <li>{{ $a->keterangan }} = Rp{{ number_format($a->anggaran) }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            {{-- Tampilkan pagination link --}}
-                            {{-- {{ $perjalanan->links() }} --}}
-                        </div>
-
                     </div>
                 </div>
+
+                <div class="container">
+                    <h5 class="section-title">Daftar Biaya & Anggaran</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Pegawai Berangkat</th>
+                                    <th>Rincian Biaya Jabatan</th>
+                                    <th>Rincian Anggaran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $totalJabatan = 0;
+                                    $totalAnggaran = 0;
+                                    $budgetPerjalanan = $perjalanan->masterdaerah->budgetperjalanan ?? 0;
+                                @endphp
+
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @foreach ($perjalanan->partisipan as $p)
+                                                <li><strong>{{ $p->masterpegawai->nama ?? 'N/A' }}</strong></li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @foreach ($perjalanan->partisipan as $p)
+                                                @php
+                                                    $biaya = $p->masterpegawai->masterpangkat->biaya ?? 0;
+                                                    $totalJabatan += $biaya;
+                                                @endphp
+                                                <li>Rp{{ number_format($biaya, 0, ',', '.') }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+
+                                    <td>
+                                        <ul class="list-unstyled">
+                                            @foreach ($perjalanan->anggaran as $a)
+                                                @php
+                                                    $totalAnggaran += $a->anggaran;
+                                                @endphp
+                                                <li>{{ $a->keterangan }} = Rp{{ number_format($a->anggaran, 0, ',', '.') }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                </tr>
+
+                                {{-- Total Baris --}}
+                                <tr class="grand-total">
+                                    <td colspan="2" class="text-center">TOTAL BIAYA JABATAN</td>
+                                    <td colspan="2">Rp{{ number_format($totalJabatan, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr class="grand-total">
+                                    <td colspan="2" class="text-center">TOTAL ANGGARAN</td>
+                                    <td colspan="2">Rp{{ number_format($totalAnggaran, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr class="grand-total">
+                                    <td colspan="2" class="text-center">BUDGET PERJALANAN</td>
+                                    <td colspan="2">Rp{{ number_format($budgetPerjalanan, 0, ',', '.') }}</td>
+                                </tr>
+                                <tr class="grand-total bg-success text-white">
+                                    <td colspan="2" class="text-center">GRAND TOTAL KESELURUHAN</td>
+                                    <td colspan="2">Rp{{ number_format($totalJabatan + $totalAnggaran + $budgetPerjalanan, 0, ',', '.') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div> <!-- end container -->
             </div>
         </div>
     </div>
+</div>
 @endsection
-
-@push('scripts')
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    <script>
-        @if (Session::has('success'))
-            toastr.success("{{ Session::get('success') }}")
-        @endif
-    </script>
-@endpush

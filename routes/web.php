@@ -17,6 +17,8 @@ use App\Http\Controllers\PerjalananController;
 use App\Http\Controllers\SuratpusatController;
 use App\Http\Controllers\MastercabangController;
 use App\Http\Controllers\MasterdaerahController;
+use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\MasterpangkatController;
 use App\Http\Controllers\MasterpegawaiController;
 use App\Http\Controllers\SuratdisposisiController;
 /*
@@ -39,10 +41,19 @@ Route::get('/', function () {
 
     $monthlyIncome = [];
     for ($month = 1; $month <= 12; $month++) {
-        $monthlyIncome[] = Pendapatan::whereYear('created_at', 2024)->whereMonth('created_at', $month)->count();
+        $monthlyIncome[] = Pendapatan::whereYear('tanggal', 2024)->whereMonth('tanggal', $month)->count();
     }
-    return view('dashboard', compact('dateNow', 'jumlahsuratperjalanan', 'jumlahsuratarsip', 'jumlahsuratpengajuan', 'jumlahsuratpendapatan', 'monthlyIncome'));
+
+    return view('dashboard', compact(
+        'dateNow',
+        'jumlahsuratperjalanan',
+        'jumlahsuratarsip',
+        'jumlahsuratpengajuan',
+        'jumlahsuratpendapatan',
+        'monthlyIncome'
+    ));
 })->middleware('auth');
+
 
 Route::prefix('dashboard')
     ->middleware(['auth:sanctum'])
@@ -52,6 +63,7 @@ Route::prefix('dashboard')
         // Master Data
         Route::resource('masterdaerah', MasterdaerahController::class);
         Route::resource('masterpegawai', MasterpegawaiController::class);
+        Route::resource('masterpangkat', MasterpangkatController::class);
 
         // Data Tables Surat
         Route::resource('perjalanan', PerjalananController::class);
@@ -60,6 +72,7 @@ Route::prefix('dashboard')
         Route::resource('alokasi', AlokasiController::class);
         Route::resource('penyetopan', PenyetopanController::class);
         Route::resource('kerugian', KerugianController::class);
+        Route::resource('pengembalian', PengembalianController::class);
         Route::get('suratarsip', [PerjalananController::class, 'suratArsip'])->name('suratarsip');
 
         // Data Tables Detail
@@ -109,11 +122,19 @@ Route::prefix('dashboard')
         Route::get('laporankerugian', [KerugianController::class, 'filterdatekerugian'])->name('laporankerugian');
         Route::get('laporankerugianpdf/filter={filter}', [KerugianController::class, 'laporankerugianpdf'])->name('laporankerugianpdf');
 
+        //pengembalian
+        Route::get('laporannya/laporanpengembalian', [PengembalianController::class, 'cetakpengembalianpertanggal'])->name('laporanpengembalian');
+        Route::get('laporanpengembalian', [PengembalianController::class, 'filterdatepengembalian'])->name('laporanpengembalian');
+        Route::get('laporanpengembalianpdf/filter={filter}', [PengembalianController::class, 'laporanpengembalianpdf'])->name('laporanpengembalianpdf');
+
         //status
         Route::put('/pengajuan/{id}/status', [PengajuanController::class, 'updateStatusPengajuan'])->name('updateStatusPengajuan');
         Route::put('/alokasi/{id}/status', [AlokasiController::class, 'updateStatusAlokasi'])->name('updateStatusAlokasi');
         Route::put('/perjalanan/{id}/status', [PerjalananController::class, 'updateStatusperjalanan'])->name('updateStatusperjalanan');
         Route::put('/penyetopan/{id}/status', [PenyetopanController::class, 'updateStatuspenyetopan'])->name('updateStatuspenyetopan');
+
+        Route::get('/Arsipkanpencariannomorsurat', [PerjalananController::class, 'suratArsip']);
+
 
         // Pernama Daerah
         Route::get('laporannya/pernama', [PengajuanController::class, 'pernama'])->name('pernama');

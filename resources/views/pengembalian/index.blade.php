@@ -15,12 +15,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Data Surat Alokasi Anggaran Daerah</h1>
+                                <h1 class="m-0">Data Surat Pengembalian Anggaran Daerah</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Data Surat Alokasi Anggaran Daerah</li>
+                                    <li class="breadcrumb-item active">Data Surat Pengembalian Anggaran Daerah</li>
                                 </ol>
                             </div>
                         </div>
@@ -30,14 +30,14 @@
                         {{-- search --}}
                         <div class="row g-3 align-items-center mb-4">
                             <div class="col-auto">
-                                <form action="alokasi" method="GET">
+                                <form action="pengembalian" method="GET">
                                     <input type="text" id="search" name="search" class="form-control"
                                         placeholder="Search">
                                 </form>
                             </div>
                             @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                             <div class="col-auto">
-                                <a href="{{ route('alokasi.create') }}" class="btn btn-success">
+                                <a href="{{ route('pengembalian.create') }}" class="btn btn-success">
                                     Tambah Data
                                 </a>
                             </div>
@@ -51,13 +51,9 @@
                                         <th class="px-6 py-2">Nomor Surat</th>
                                         <th class="px-6 py-2">Tanggal</th>
                                         <th class="px-6 py-2">Daerah</th>
-                                        <th class="px-6 py-2">Nominal</th>
-                                        <th class="px-6 py-2">Keperluan</th>
+                                        <th class="px-6 py-2">Jumlah Pengembalian</th>
+                                        <th class="px-6 py-2">Keterangan</th>
                                         <th class="px-6 py-2">Penanggung Jawab</th>
-                                        <th class="px-6 py-2">Sumber Dana</th>
-                                        <th class="px-6 py-2">Program</th>
-                                        <th class="px-6 py-2">Uraian Kegiatan</th>
-                                        <th class="px-6 py-2">Status</th>
                                         @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                         <th class="px-6 py-2">Action</th>
                                         @endif
@@ -67,46 +63,21 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @foreach ($alokasi as $index => $item)
+                                    @foreach ($pengembalian as $index => $item)
                                         <tr>
-                                            <th class="px-6 py-2">{{ $index + $alokasi->firstItem() }}</th>
+                                            <th class="px-6 py-2">{{ $index + $pengembalian->firstItem() }}</th>
                                             <td class="px-6 py-2">{{ $item->nosurat }}</td>
                                             <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                                             <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
-                                            <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
-                                            <td class="px-6 py-2">{{ $item->keperluan }}</td>
+                                            <td class="px-6 py-2">Rp. {{ number_format($item->kerugian->jumlahkerugian) }}</td>
+                                            <td class="px-6 py-2">{{ $item->keterangan }}</td>
                                             <td class="px-6 py-2">{{ $item->penanggungjawab }}</td>
-                                            <td class="px-6 py-2">{{ $item->sumberdana }}</td>
-                                            <td class="px-6 py-2">{{ $item->program }}</td>
-                                            <td class="px-6 py-2">{{ $item->uraiankegiatan }}</td>
-                                            <td class="px-6 py-2">
-                                                @if($item->status == 'Terverifikasi')
-                                                <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
-                                                @elseif($item->status == 'Ditolak')
-                                                <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
-                                                @else
-                                                @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
-                                                <span class="p-2 mb-2 bg-warning text-black rounded">Tunggu Verifikasi</span>
-                                                @endif
-                                                @if (Auth::user()->hakakses('pimpinan'))
-                                                    <form action="{{ route('updateStatusAlokasi', $item->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <select name="status" class="form-control form-control-sm">
-                                                            <option value="Terverifikasi" {{ $item->status == 'Terverifikasi' ? 'selected' : '' }} style="background-color: #28a745; color: white;">Verifikasi</option> <!-- Green for Verifikasi -->
-                                                            <option value="Ditolak" {{ $item->status == 'Ditolak' ? 'selected' : '' }} style="background-color: #dc3545; color: white;">Tolak</option> <!-- Red for Ditolak -->
-                                                        </select>
-                                                        <button type="submit" class="btn btn-primary btn-sm mt-2">Update Status</button>
-                                                    </form>
-                                                @endif
-                                            </td>
-                                            @endif
                                             @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                                             <td>
-                                                <a href="{{ route('alokasi.edit', $item->id) }}" class="btn btn-primary">
+                                                <a href="{{ route('pengembalian.edit', $item->id) }}" class="btn btn-primary">
                                                     Edit
                                                 </a>
-                                                <form action="{{ route('alokasi.destroy', $item->id) }}" method="POST"
+                                                <form action="{{ route('pengembalian.destroy', $item->id) }}" method="POST"
                                                     style="display:inline;">
                                                     @csrf
                                                     @method('delete')
@@ -118,7 +89,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $alokasi->links() }}
+                            {{ $pengembalian->links() }}
                         </div>
                     </div>
                 </div>

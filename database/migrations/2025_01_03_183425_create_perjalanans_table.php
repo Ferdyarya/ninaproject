@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nosurat')->nullable();
             $table->string('id_daerah');
+            $table->string('id_masterpegawai')->nullable();
             // $table->string('id_masterpegawai');
             $table->string('deskripsi');
             $table->string('tanggal');

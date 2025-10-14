@@ -18,20 +18,20 @@
 <!-- Or for RTL support -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
-<title>Surat Alokasi Anggaran Daerah</title>
+<title>Surat Pengembalian Anggaran Daerah</title>
 
 
 <body>
     <div class="container-fluid">
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
-              <h1 class="text-center mb-4">Tambah Data Surat Alokasi Anggaran Daerah</h1>
+              <h1 class="text-center mb-4">Tambah Data Surat Pengembalian Anggaran Daerah</h1>
               <div class="container">
                   <div class="row justify-content-center">
                       <div class="col-8">
                           <div class="card" style="border-radius: 10px;">
                               <div class="card-body">
-                                <form method="POST" action="{{ route('alokasi.store') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('pengembalian.store') }}" enctype="multipart/form-data">
                                     @csrf
 
                                   <div class="form-group">
@@ -50,49 +50,30 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label for="id_kerugian">Dana Dikembalian</label>
+                                    <select class="form-select" name="id_kerugian" id="kerugian" data-placeholder="Pilih Dana" style="border-radius: 8px;">
+                                        <option></option>
+                                        @foreach ($kerugian as $item)
+                                            <option value="{{ $item->id }}">{{ $item->jumlahkerugian }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                   <div class="form-group">
-                                      <label for="nominal">Nominal</label>
-                                      <input  type="number" name="nominal" class="form-control @error('nominal') is-invalid @enderror" id="nominal" placeholder="Masukkan Nominal" value="{{ old('nominal') }}" required>
-                                      @error('nominal')
-                                          <div class="invalid-feedback">{{ $message }}</div>
-                                      @enderror
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="keperluan">Keperluan</label>
-                                    <input type="text" name="keperluan" class="form-control @error('keperluan') is-invalid @enderror" id="keperluan" placeholder="Masukkan keperluan Perjalanan" value="{{ old('keperluan') }}" required>
-                                    @error('keperluan')
+                                    <label for="keterangan">Keterangan</label>
+                                    <input type="text" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" placeholder="Masukkan keterangan Perjalanan" value="{{ old('keterangan') }}" required>
+                                    @error('keterangan')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                   </div>
-
                                   <div class="form-group">
                                     <label for="penanggungjawab">Penanggung Jawab</label>
-                                    <input type="text" name="penanggungjawab" class="form-control @error('penanggungjawab') is-invalid @enderror" id="penanggungjawab" placeholder="Masukkan penanggungjawab" value="{{ old('penanggungjawab') }}" required>
+                                    <input type="text" name="penanggungjawab" class="form-control @error('penanggungjawab') is-invalid @enderror" id="penanggungjawab" placeholder="Masukkan Penanggung Jawab" value="{{ old('penanggungjawab') }}" required>
                                     @error('penanggungjawab')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                   </div>
-                                  <div class="form-group">
-                                    <label for="sumberdana">Sumber Dana</label>
-                                    <input type="text" name="sumberdana" class="form-control @error('sumberdana') is-invalid @enderror" id="sumberdana" placeholder="Masukkan Sumber Dana" value="{{ old('sumberdana') }}" required>
-                                    @error('sumberdana')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="program">Program</label>
-                                    <input type="text" name="program" class="form-control @error('program') is-invalid @enderror" id="program" placeholder="Masukkan Program" value="{{ old('program') }}" required>
-                                    @error('program')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="uraiankegiatan">Uraian Kegiatan</label>
-                                    <input type="text" name="uraiankegiatan" class="form-control @error('uraiankegiatan') is-invalid @enderror" id="uraiankegiatan" placeholder="Masukkan Uraian Kegiatan" value="{{ old('uraiankegiatan') }}" required>
-                                    @error('uraiankegiatan')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                  </div>
+
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                               </div>
@@ -149,6 +130,13 @@
 
 <script>
 $( '#judulbuku' ).select2( {
+theme: "bootstrap-5",
+width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+placeholder: $( this ).data( 'placeholder' ),
+} );
+</script>
+<script>
+$( '#kerugian' ).select2( {
 theme: "bootstrap-5",
 width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
 placeholder: $( this ).data( 'placeholder' ),

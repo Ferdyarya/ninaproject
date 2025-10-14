@@ -40,15 +40,15 @@
             </div>
 
 
-            <!-- Grafik Peminjaman Buku -->
+            <!-- Pendapatan Dana Bulanan -->
             <div class="row mt-5">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title"><b>Pendapatan Dana Bulanan (2025)</b></h3>
+                            <h3 class="card-title"><b>Pendapatan Dana Bulanan (2024)</b></h3>
                         </div>
                         <div class="card-body">
-                            <canvas id="incomeChart" width="400" height="200"></canvas>
+                            <canvas id="incomeChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -56,32 +56,34 @@
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
-                const ctx = document.getElementById('incomeChart').getContext('2d');
-                const incomeChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
-                        datasets: [{
-                            label: 'Pendapatan Dana (2024)',
-                            data: @json($monthlyIncome),
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderWidth: 2,
-                            tension: 0.3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            y: {
-                                beginAtZero: true
+                document.addEventListener('DOMContentLoaded', function() {
+                    const ctx = document.getElementById('incomeChart').getContext('2d');
+                    const incomeChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov',
+                                'Des'
+                            ],
+                            datasets: [{
+                                label: 'Pendapatan Dana (2024)',
+                                data: @json($monthlyIncome ?? []),
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderWidth: 2,
+                                tension: 0.3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
-                    }
+                    });
                 });
             </script>
-
-
         </div>
     </div>
 @endsection

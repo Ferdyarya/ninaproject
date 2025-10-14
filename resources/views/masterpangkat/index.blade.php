@@ -18,12 +18,12 @@
               <div class="content-header">
                       <div class="row mb-2">
                           <div class="col-sm-6">
-                              <h1 class="m-0">Master Data Daerah</h1>
+                              <h1 class="m-0">Master Data Pangkat</h1>
                           </div><!-- /.col -->
                           <div class="col-sm-6">
                               <ol class="breadcrumb float-sm-right">
                                   <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                  <li class="breadcrumb-item active">Master Data Daerah</li>
+                                  <li class="breadcrumb-item active">Master Data Pangkat</li>
                               </ol>
                           </div><!-- /.col -->
                       </div><!-- /.row -->
@@ -41,14 +41,14 @@
                   {{-- search --}}
                   <div class="row g-3 align-items-center mb-4">
                       <div class="col-auto">
-                          <form action="masterdaerah" method="GET">
+                          <form action="masterpangkat" method="GET">
                               <input type="text" id="search" name="search" class="form-control" placeholder="Search">
                           </form>
                       </div>
 
                       {{-- Button Export PDF --}}
                       <div class="col-auto">
-                          <a href="{{ route('masterdaerah.create')}}" class="btn btn-success">
+                          <a href="{{ route('masterpangkat.create')}}" class="btn btn-success">
                               Tambah Data
                           </a>
                       </div>
@@ -59,9 +59,8 @@
                           <thead>
                               <tr>
                                   <th class="px-6 py-2">No</th>
-                                  <th class="px-6 py-2">Daerah Dinas</th>
-                                  <th class="px-6 py-2">Alamat</th>
-                                  <th class="px-6 py-2">Dana Perjalanan</th>
+                                  <th class="px-6 py-2">Jabatan</th>
+                                  <th class="px-6 py-2">Biaya</th>
                                   <th class="px-6 py-2">Action</th>
                               </tr>
                           </thead>
@@ -69,18 +68,16 @@
                               @php
                               $no=1;
                               @endphp
-                              @foreach ($masterdaerah as $index => $item)
+                              @foreach ($masterpangkat as $index => $item)
                               <tr>
-                                  <th class="px-6 py-2">{{ $index + $masterdaerah->firstItem() }}</th>
-                                  <td class="px-6 py-2">{{ $item->namadaerah }}</td>
-                                  <td class="px-6 py-2">{{ $item->kategori }}</td>
-                                  <td class="px-6 py-2">{{ $item->alamat }}</td>
-                                  <td class="px-6 py-2">{{ $item->budgetperjalanan }}</td>
+                                  <th class="px-6 py-2">{{ $index + $masterpangkat->firstItem() }}</th>
+                                  <td class="px-6 py-2">{{ $item->pangkat }}</td>
+                                  <td class="px-6 py-2">{{ $item->biaya }}</td>
                                   <td>
-                                      <a href="{{ route('masterdaerah.edit', $item->id)}}" class="btn btn-primary">
+                                      <a href="{{ route('masterpangkat.edit', $item->id)}}" class="btn btn-primary">
                                           Edit
                                       </a>
-                                      <form action="{{ route('masterdaerah.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                      <form action="{{ route('masterpangkat.destroy', $item->id) }}" method="POST" style="display:inline;">
                                           @csrf
                                           @method('delete')
                                           <button type="submit" class="btn btn-danger">Hapus</button>
@@ -90,7 +87,7 @@
                               @endforeach
                           </tbody>
                       </table>
-                      {{ $masterdaerah->links() }}
+                      {{ $masterpangkat->links() }}
                   </div>
               </div>
           </div>

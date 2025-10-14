@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Laporan Data Surat Alokasi Dana Daerah</h3>
+                                <h3 class="m-0">Laporan Data Surat Pengembalian Dana Daerah</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Laporan Data Surat Alokasi Dana Daerah</li>
+                                    <li class="breadcrumb-item active">Laporan Data Surat Pengembalian Dana Daerah</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -37,7 +37,7 @@
 
 
                     <div class="container">
-                        <form action="{{ route('laporanalokasi') }}" method="GET" class="row">
+                        <form action="{{ route('laporanpengembalian') }}" method="GET" class="row">
                             <div class="col-md-3">
                                 <label for="dari">Start Date:</label>
                                 <input type="date" id="dari" name="dari" class="form-control">
@@ -54,10 +54,10 @@
 
                             <div class="col-md-2 pt-4">
                                 @if (!empty($filter))
-                                    <a href="{{ route('laporanalokasipdf', $filter) }}"
+                                    <a href="{{ route('laporanpengembalianpdf', $filter) }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @else
-                                    <a href="{{ route('laporanalokasipdf', 'all') }}"
+                                    <a href="{{ route('laporanpengembalianpdf', 'all') }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @endif
                             </div>
@@ -72,46 +72,29 @@
                                     <th class="px-6 py-2">Nomor Surat</th>
                                     <th class="px-6 py-2">Tanggal</th>
                                     <th class="px-6 py-2">Daerah</th>
-                                    <th class="px-6 py-2">Nominal</th>
-                                    <th class="px-6 py-2">Keperluan</th>
+                                    <th class="px-6 py-2">Jumlah pengembalian</th>
+                                    <th class="px-6 py-2">Keterangan</th>
                                     <th class="px-6 py-2">Penanggung Jawab</th>
-                                    <th class="px-6 py-2">Sumber Dana</th>
-                                    <th class="px-6 py-2">Program</th>
-                                    <th class="px-6 py-2">Uraian Kegiatan</th>
-                                    <th class="px-6 py-2">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{-- @php
                               $no=1;
                               @endphp --}}
-                                @foreach ($laporanalokasi as $index => $item)
+                                @foreach ($laporanpengembalian as $index => $item)
                                     <tr>
-                                        <th class="px-6 py-2">{{ $index + $laporanalokasi->firstItem() }}</th>
+                                        <th class="px-6 py-2">{{ $index + $laporanpengembalian->firstItem() }}</th>
                                         <td class="px-6 py-2">{{ $item->nosurat }}</td>
-                                        <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-                                        </td>
+                                        <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                                         <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
-                                        <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
-                                        <td class="px-6 py-2">{{ $item->keperluan }}</td>
+                                        <td class="px-6 py-2">Rp. {{ number_format($item->kerugian->jumlahkerugian) }}</td>
+                                        <td class="px-6 py-2">{{ $item->keterangan }}</td>
                                         <td class="px-6 py-2">{{ $item->penanggungjawab }}</td>
-                                        <td class="px-6 py-2">{{ $item->sumberdana }}</td>
-                                        <td class="px-6 py-2">{{ $item->program }}</td>
-                                        <td class="px-6 py-2">{{ $item->uraiankegiatan }}</td>
-                                        <td class="px-6 py-2">
-                                            @if ($item->status == 'Terverifikasi')
-                                                <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
-                                                <!-- Green for verified -->
-                                            @elseif($item->status == 'Ditolak')
-                                                <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
-                                                <!-- Red/orange for rejected -->
-                                            @endif
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $laporanalokasi->links() }}
+                        {{ $laporanpengembalian->links() }}
                     </div>
                 </div>
             </div>

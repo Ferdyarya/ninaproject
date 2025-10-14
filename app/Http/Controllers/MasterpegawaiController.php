@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Masterpangkat;
 use App\Models\Masterpegawai;
 
 class MasterpegawaiController extends Controller
@@ -22,7 +23,11 @@ class MasterpegawaiController extends Controller
 
     public function create()
     {
-        return view('masterpegawai.create');
+       $masterpangkat = Masterpangkat::all();
+        return view('masterpegawai.create', [
+            'masterpangkat' => $masterpangkat,
+        ]);
+        return view('masterpegawai.create')->with('success', 'Data Telah ditambahkan');
     }
 
     public function store(Request $request)
@@ -43,8 +48,11 @@ class MasterpegawaiController extends Controller
 
     public function edit(Masterpegawai $masterpegawai)
     {
+         $masterpangkat = Masterpangkat::all();
+
         return view('masterpegawai.edit', [
-            'item' => $masterpegawai
+            'item' => $masterpegawai,
+            'masterpangkat' => $masterpangkat,
         ]);
     }
 

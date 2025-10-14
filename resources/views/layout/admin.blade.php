@@ -69,6 +69,14 @@
                     </a>
                   </li>
                   <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('masterpangkat.index') }}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-article"></i>
+                      </span>
+                      <span class="hide-menu">Data Jabatan</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('masterdaerah.index') }}" aria-expanded="false">
                       <span>
                         <i class="ti ti-article"></i>
@@ -143,8 +151,16 @@
                         <span class="hide-menu">Surat Dinas Kerugian Dana Daerah</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('pengembalian.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-mail"></i>
+                        </span>
+                        <span class="hide-menu">Surat Dinas Pengembalian Dana Daerah</span>
+                    </a>
+                </li>
                 @endif
-                
+
                  @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
                   <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>

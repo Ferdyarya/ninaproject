@@ -113,10 +113,10 @@
                     <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
                     <td class="px-6 py-2">{{ $item->keterangan }}</td>
                     <td class="px-6 py-2">{{ $item->penanggungjawab }}</td>
-                    <td class="px-6 py-2">Rp. {{ number_format($item->jumlahkerugian) }}</td>
+                    <td class="px-6 py-2">Rp. {{ number_format($item->kerugian->jumlahkerugian) }}</td>
                 </tr>
                 @php
-                    $grandTotal += $item->jumlahkerugian;
+                    $grandTotal += $item->kerugian->jumlahkerugian;
                 @endphp
             @endforeach
         </tbody>

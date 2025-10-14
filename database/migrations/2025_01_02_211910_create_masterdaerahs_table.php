@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('masterdaerahs', function (Blueprint $table) {
             $table->id();
             $table->string('namadaerah');
+            $table->string('kategori');
             $table->string('alamat');
+            $table->string('budgetperjalanan');
             $table->timestamps();
         });
     }

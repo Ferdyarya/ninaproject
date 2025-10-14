@@ -98,6 +98,9 @@
                 <th class="px-6 py-2">Keperluan</th>
                 <th class="px-6 py-2">Penanggung Jawab</th>
                 <th class="px-6 py-2">Status</th>
+                <th class="px-6 py-2">Sumber Dana</th>
+                <th class="px-6 py-2">Program</th>
+                <th class="px-6 py-2">Uraian Kegiatan</th>
                 <th class="px-6 py-2">Total</th>
             </tr>
         </thead>
@@ -115,6 +118,9 @@
                     <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
                     <td class="px-6 py-2">{{ $item->keperluan }}</td>
                     <td class="px-6 py-2">{{ $item->penanggungjawab }}</td>
+                    <td class="px-6 py-2">{{ $item->sumberdana }}</td>
+                    <td class="px-6 py-2">{{ $item->program }}</td>
+                    <td class="px-6 py-2">{{ $item->uraiankegiatan }}</td>
                     <td class="px-6 py-2">
                         @if ($item->status == 'Terverifikasi')
                             <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
@@ -133,7 +139,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="8" class="text-right px-6 py-2"><strong>Grand Total: </strong></td>
+                <td colspan="11" class="text-right px-6 py-2"><strong>Grand Total: </strong></td>
                 <td class="px-6 py-2">Rp. {{ number_format($grandTotal) }}</td>
             </tr>
         </tfoot>
@@ -149,4 +155,5 @@
         <p style="text-align: right; margin-top: 8px;"><b>H. SUBHAN YAUMIL, S.E., M.SI</b></p>
     </div>
 </body>
+
 </html>

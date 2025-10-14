@@ -63,6 +63,7 @@
                             <tr>
                                 <th class="px-6 py-2">No</th>
                                 <th class="px-6 py-2">Nama Anggota</th>
+                                <th class="px-6 py-2">Jabatan</th>
                                 <th class="px-6 py-2">Email</th>
                                 <th class="px-6 py-2">No Telpon</th>
                                 <th class="px-6 py-2">Jenis Kelamin</th>
@@ -78,6 +79,7 @@
                             <tr>
                                 <th class="px-6 py-2">{{ $index + $masterpegawai->firstItem() }}</th>
                                 <td class="px-6 py-2">{{ $item->nama }}</td>
+                                <td class="px-6 py-2">{{ $item->masterpangkat->pangkat }}</td>
                                 <td class="px-6 py-2">{{ $item->email }}</td>
                                 <td class="px-6 py-2">{{ $item->no_telp }}</td>
                                 <td class="px-6 py-2">{{ $item->jeniskelamin }}</td>

@@ -114,24 +114,6 @@ public function generatenosurat()
     }
 
 
-    // public function updateStatuskerugian(Request $request, $id)
-    // {
-    //     $validated = $request->validate([
-    //         'status' => 'required|in:Terverifikasi,Ditolak',
-    //     ]);
-
-    //     // Find the rawatrumahkaca entry by ID
-    //     $pengajuan = Pengajuan::findOrFail($id);
-
-    //     // Update the status based on the form input
-    //     $pengajuan->status = $validated['status'];
-    //     $pengajuan->save();
-
-    //     // Redirect back to the suratmasuk page with a success message
-    //     return redirect()->route('kerugian.index')->with('success', 'Status surat berhasil diperbarui.');
-    // }
-
-
      // Laporan Buku Surat Pusat Filter
      public function cetakkerugianpertanggal()
      {
