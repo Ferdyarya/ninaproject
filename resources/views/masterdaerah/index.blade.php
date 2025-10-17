@@ -60,6 +60,7 @@
                               <tr>
                                   <th class="px-6 py-2">No</th>
                                   <th class="px-6 py-2">Daerah Dinas</th>
+                                  <th class="px-6 py-2">Kategori</th>
                                   <th class="px-6 py-2">Alamat</th>
                                   <th class="px-6 py-2">Dana Perjalanan</th>
                                   <th class="px-6 py-2">Action</th>

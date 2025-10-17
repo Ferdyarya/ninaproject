@@ -35,12 +35,12 @@
                                         placeholder="Search">
                                 </form>
                             </div>
-                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
-                            <div class="col-auto">
-                                <a href="{{ route('alokasi.create') }}" class="btn btn-success">
-                                    Tambah Data
-                                </a>
-                            </div>
+                            @if (Auth::user()->hakakses('petugas') || Auth::user()->hakakses('admin'))
+                                <div class="col-auto">
+                                    <a href="{{ route('alokasi.create') }}" class="btn btn-success">
+                                        Tambah Data
+                                    </a>
+                                </div>
                             @endif
                         </div>
                         <div>
@@ -58,8 +58,8 @@
                                         <th class="px-6 py-2">Program</th>
                                         <th class="px-6 py-2">Uraian Kegiatan</th>
                                         <th class="px-6 py-2">Status</th>
-                                        @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
-                                        <th class="px-6 py-2">Action</th>
+                                        @if (Auth::user()->hakakses('petugas') || Auth::user()->hakakses('admin'))
+                                            <th class="px-6 py-2">Action</th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -71,7 +71,8 @@
                                         <tr>
                                             <th class="px-6 py-2">{{ $index + $alokasi->firstItem() }}</th>
                                             <td class="px-6 py-2">{{ $item->nosurat }}</td>
-                                            <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
+                                            <td class="px-6 py-2">
+                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                                             <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
                                             <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
                                             <td class="px-6 py-2">{{ $item->keperluan }}</td>
@@ -79,42 +80,60 @@
                                             <td class="px-6 py-2">{{ $item->sumberdana }}</td>
                                             <td class="px-6 py-2">{{ $item->program }}</td>
                                             <td class="px-6 py-2">{{ $item->uraiankegiatan }}</td>
-                                            <td class="px-6 py-2">
-                                                @if($item->status == 'Terverifikasi')
-                                                <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
+                                            <td class="px-6 py-2 text-center">
+                                                @if ($item->status == 'Terverifikasi')
+                                                    <span class="badge bg-success text-white px-3 py-2 ">
+                                                        Terverifikasi
+                                                    </span>
                                                 @elseif($item->status == 'Ditolak')
-                                                <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                                                    <span class="badge bg-danger text-white px-3 py-2 ">
+                                                        Ditolak
+                                                    </span>
                                                 @else
-                                                @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
-                                                <span class="p-2 mb-2 bg-warning text-black rounded">Tunggu Verifikasi</span>
-                                                @endif
-                                                @if (Auth::user()->hakakses('pimpinan'))
-                                                    <form action="{{ route('updateStatusAlokasi', $item->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <select name="status" class="form-control form-control-sm">
-                                                            <option value="Terverifikasi" {{ $item->status == 'Terverifikasi' ? 'selected' : '' }} style="background-color: #28a745; color: white;">Verifikasi</option> <!-- Green for Verifikasi -->
-                                                            <option value="Ditolak" {{ $item->status == 'Ditolak' ? 'selected' : '' }} style="background-color: #dc3545; color: white;">Tolak</option> <!-- Red for Ditolak -->
-                                                        </select>
-                                                        <button type="submit" class="btn btn-primary btn-sm mt-2">Update Status</button>
-                                                    </form>
+                                                    @if (Auth::user()->hakakses('petugas') || Auth::user()->hakakses('admin'))
+                                                        <span class="badge bg-warning text-dark px-3 py-2 ">
+                                                            Tunggu Verifikasi
+                                                        </span>
+                                                    @endif
+
+                                                    @if (Auth::user()->hakakses('pimpinan'))
+                                                        <form action="{{ route('updateStatusAlokasi', $item->id) }}"
+                                                            method="POST" class="mt-2">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <select name="status"
+                                                                class="form-control form-control-sm mb-2">
+                                                                <option value="Terverifikasi"
+                                                                    {{ $item->status == 'Terverifikasi' ? 'selected' : '' }}>
+                                                                    Verifikasi
+                                                                </option>
+                                                                <option value="Ditolak"
+                                                                    {{ $item->status == 'Ditolak' ? 'selected' : '' }}>
+                                                                    Tolak
+                                                                </option>
+                                                            </select>
+                                                            <button type="submit"
+                                                                class="btn btn-primary btn-sm w-100">Update Status</button>
+                                                        </form>
+                                                    @endif
                                                 @endif
                                             </td>
-                                            @endif
-                                            @if (Auth::user()->hakakses('petugas')|| Auth::user()->hakakses('admin'))
-                                            <td>
-                                                <a href="{{ route('alokasi.edit', $item->id) }}" class="btn btn-primary">
-                                                    Edit
-                                                </a>
-                                                <form action="{{ route('alokasi.destroy', $item->id) }}" method="POST"
-                                                    style="display:inline;">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                                </form>
-                                            </td>
-                                            @endif
-                                        </tr>
+
+                                    {{-- @endif --}}
+                                    @if (Auth::user()->hakakses('petugas') || Auth::user()->hakakses('admin'))
+                                        <td>
+                                            <a href="{{ route('alokasi.edit', $item->id) }}" class="btn btn-primary">
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('alokasi.destroy', $item->id) }}" method="POST"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </form>
+                                        </td>
+                                    @endif
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>

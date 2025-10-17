@@ -38,6 +38,9 @@ class AlokasiController extends Controller
             'nominal' => 'required|numeric',
             'keperluan' => 'required|string',
             'penanggungjawab' => 'required|string',
+            'sumberdana' => 'required|string',
+            'program' => 'required|string',
+            'uraiankegiatan' => 'required|string',
             'tanggal' => 'required|date',
         ]);
 
@@ -45,7 +48,7 @@ class AlokasiController extends Controller
         $nosurat = $this->generatenosurat();
 
         // Ambil data dari request dan tambahkan kode surat
-        $data = $request->all(['id_daerah', 'id_pegawai', 'nominal', 'keperluan', 'tanggal', 'penanggungjawab']);
+        $data = $request->all(['id_daerah', 'id_pegawai', 'nominal', 'keperluan', 'tanggal', 'penanggungjawab','sumberdana','program','uraiankegiatan']);
         $data['nosurat'] = $nosurat;
 
         // Menyimpan data ke database

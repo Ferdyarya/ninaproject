@@ -101,10 +101,8 @@
                                         <td class="px-6 py-2">
                                             @if ($item->status == 'Terverifikasi')
                                                 <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
-                                                <!-- Green for verified -->
                                             @elseif($item->status == 'Ditolak')
                                                 <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
-                                                <!-- Red/orange for rejected -->
                                             @endif
                                         </td>
                                     </tr>

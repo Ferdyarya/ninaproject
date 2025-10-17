@@ -59,14 +59,57 @@
 
                                             <div class="form-group">
                                                 <label for="perihal">Perihal</label>
-                                                <input type="text" name="perihal"
-                                                    class="form-control @error('perihal') is-invalid @enderror"
-                                                    id="perihal" placeholder="Masukkan Perihal Perjalanan"
-                                                    value="{{ old('perihal') }}" required>
+                                                <select name="perihal" id="perihal"
+                                                    class="form-control @error('perihal') is-invalid @enderror" required>
+                                                    <option value="">-- Pilih Perihal Perjalanan --</option>
+                                                    <option value="Sosialisasi Pajak Air Permukaan"
+                                                        {{ old('perihal') == 'Sosialisasi Pajak Air Permukaan' ? 'selected' : '' }}>
+                                                        Sosialisasi Pajak Air Permukaan</option>
+                                                    <option value="Verifikasi Data Pajak Kendaraan"
+                                                        {{ old('perihal') == 'Verifikasi Data Pajak Kendaraan' ? 'selected' : '' }}>
+                                                        Verifikasi Data Pajak Kendaraan</option>
+                                                    <option value="Evaluasi Penerimaan Pajak Bahan Bakar"
+                                                        {{ old('perihal') == 'Evaluasi Penerimaan Pajak Bahan Bakar' ? 'selected' : '' }}>
+                                                        Evaluasi Penerimaan Pajak Bahan Bakar</option>
+                                                    <option value="Rapat Koordinasi Pendapatan Daerah"
+                                                        {{ old('perihal') == 'Rapat Koordinasi Pendapatan Daerah' ? 'selected' : '' }}>
+                                                        Rapat Koordinasi Pendapatan Daerah</option>
+                                                    <option value="Pembinaan Pegawai UPTD"
+                                                        {{ old('perihal') == 'Pembinaan Pegawai UPTD' ? 'selected' : '' }}>
+                                                        Pembinaan Pegawai UPTD</option>
+                                                    <option value="Rapat Evaluasi PAD"
+                                                        {{ old('perihal') == 'Rapat Evaluasi PAD' ? 'selected' : '' }}>
+                                                        Rapat Evaluasi PAD</option>
+                                                    <option value="Bimbingan Teknis Sistem Pajak Online"
+                                                        {{ old('perihal') == 'Bimbingan Teknis Sistem Pajak Online' ? 'selected' : '' }}>
+                                                        Bimbingan Teknis Sistem Pajak Online</option>
+                                                    <option value="Sosialisasi Kebijakan Pendapatan Daerah"
+                                                        {{ old('perihal') == 'Sosialisasi Kebijakan Pendapatan Daerah' ? 'selected' : '' }}>
+                                                        Sosialisasi Kebijakan Pendapatan Daerah</option>
+                                                    <option value="Bimbingan Teknis Pengelolaan Pajak Daerah"
+                                                        {{ old('perihal') == 'Bimbingan Teknis Pengelolaan Pajak Daerah' ? 'selected' : '' }}>
+                                                        Bimbingan Teknis Pengelolaan Pajak Daerah</option>
+                                                    <option value="Bimtek Implementasi Sistem Informasi Pajak"
+                                                        {{ old('perihal') == 'Bimtek Implementasi Sistem Informasi Pajak' ? 'selected' : '' }}>
+                                                        Bimtek Implementasi Sistem Informasi Pajak</option>
+                                                    <option value="Monitoring dan Evaluasi Samsat Induk dan Keliling"
+                                                        {{ old('perihal') == 'Monitoring dan Evaluasi Samsat Induk dan Keliling' ? 'selected' : '' }}>
+                                                        Monitoring dan Evaluasi Samsat Induk dan Keliling</option>
+                                                    <option value="Monitoring Kinerja UPTD Pendapatan Daerah"
+                                                        {{ old('perihal') == 'Monitoring Kinerja UPTD Pendapatan Daerah' ? 'selected' : '' }}>
+                                                        Monitoring Kinerja UPTD Pendapatan Daerah</option>
+                                                    <option value="Monitoring Realisasi Pendapatan Daerah"
+                                                        {{ old('perihal') == 'Monitoring Realisasi Pendapatan Daerah' ? 'selected' : '' }}>
+                                                        Monitoring Realisasi Pendapatan Daerah</option>
+                                                    <option value="Evaluasi Program Peningkatan Pajak Daerah"
+                                                        {{ old('perihal') == 'Evaluasi Program Peningkatan Pajak Daerah' ? 'selected' : '' }}>
+                                                        Evaluasi Program Peningkatan Pajak Daerah</option>
+                                                </select>
                                                 @error('perihal')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
+
 
                                             <div class="form-group">
                                                 <label for="deskripsi">Deskripsi</label>

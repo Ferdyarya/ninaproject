@@ -19,8 +19,12 @@
         }
 
         table {
+            border-collapse: collapse;
+            width: auto;
+            min-width: 100%;
+            font-size: 13px;
             border-bottom: 4px solid #000;
-            /* padding: 2px */
+            table-layout: fixed;
         }
 
         .tengah {
@@ -62,21 +66,57 @@
             text-align: left;
             font-size: 14px;
         }
+
+        .rangkasurat {
+            width: 100%;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .logo {
+            flex: 0 0 140px;
+            text-align: left;
+        }
+
+        .instansi {
+            flex: 1;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .instansi h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .instansi p {
+            margin: 0;
+            font-size: 12px;
+        }
     </style>
 
     <div class="rangkasurat">
-        <table width="100%">
-            <tr>
-                <td><img src="{{ public_path('assets/logobjb3.png') }}" alt="logo" width="140px"></td>
-                <td class="tengah">
-                    <h4>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</h4>
-                    <p>Jl. Raya Dharma Praja
-                        Pemprov Kalsel, Trikora
-                        Banjarbaru, Kalimantan Selatan
-                        Kode Pos 70700</p>
-                </td>
-            </tr>
-        </table>
+        <div class="header-container">
+            <div class="logo">
+                <img src="{{ public_path('assets/logobjb3.png') }}" alt="logo" width="140px">
+            </div>
+            <div class="instansi">
+                <h4>BADAN PENDAPATAN DAERAH PROVINSI KALIMANTAN SELATAN</h4>
+                <p>
+                    Jl. Raya Dharma Praja Pemprov Kalsel, Trikora Banjarbaru,
+                    Kalimantan Selatan Kode Pos 70700
+                </p>
+            </div>
+        </div>
     </div>
 
     <center>
@@ -87,31 +127,28 @@
 
     <br>
 
-    <table class='table table-bordered' id="warnatable">
+    <table class="table table-bordered" id="warnatable">
         <thead>
-            <tr>
-                <th class="px-6 py-2">No</th>
-                <th class="px-6 py-2">Nomor Surat</th>
-                <th class="px-6 py-2">Tanggal</th>
-                <th class="px-6 py-2">Daerah</th>
-                <th class="px-6 py-2">Nominal</th>
-                <th class="px-6 py-2">Keperluan</th>
-                <th class="px-6 py-2">Penanggung Jawab</th>
-                <th class="px-6 py-2">Status</th>
-                <th class="px-6 py-2">Sumber Dana</th>
-                <th class="px-6 py-2">Program</th>
-                <th class="px-6 py-2">Uraian Kegiatan</th>
-                <th class="px-6 py-2">Total</th>
+            <tr class="text-center">
+                <th class="px-12 py-2">No</th>
+                <th class="px-12 py-2">Nomor Surat</th>
+                <th class="px-12 py-2">Tanggal</th>
+                <th class="px-12 py-2">Daerah</th>
+                <th class="px-12 py-2">Nominal</th>
+                <th class="px-12 py-2">Keperluan</th>
+                <th class="px-12 py-2">Penanggung Jawab</th>
+                <th class="px-12 py-2">Sumber Dana</th>
+                <th class="px-12 py-2">Program</th>
+                <th class="px-12 py-2">Uraian Kegiatan</th>
+                <th class="px-12 py-2">Status</th>
+                <th class="px-12 py-2">Total</th>
             </tr>
         </thead>
         <tbody>
-            @php
-                $grandTotal = 0;
-            @endphp
-
+            @php $grandTotal = 0; @endphp
             @foreach ($laporanalokasi as $item)
                 <tr>
-                    <td class="px-6 py-6">{{ $loop->iteration }}</td>
+                    <td class="px-6 py-2 text-center">{{ $loop->iteration }}</td>
                     <td class="px-6 py-2">{{ $item->nosurat }}</td>
                     <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                     <td class="px-6 py-2">{{ $item->masterdaerah->namadaerah }}</td>
@@ -121,29 +158,28 @@
                     <td class="px-6 py-2">{{ $item->sumberdana }}</td>
                     <td class="px-6 py-2">{{ $item->program }}</td>
                     <td class="px-6 py-2">{{ $item->uraiankegiatan }}</td>
-                    <td class="px-6 py-2">
+                    <td class="px-6 py-2 text-center">
                         @if ($item->status == 'Terverifikasi')
-                            <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
-                            <!-- Green for verified -->
+                            <span class="badge bg-success text-white px-3 py-2">Terverifikasi</span>
                         @elseif($item->status == 'Ditolak')
-                            <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
-                            <!-- Red/orange for rejected -->
+                            <span class="badge bg-danger text-white px-3 py-2">Ditolak</span>
+                        @else
+                            –
                         @endif
                     </td>
                     <td class="px-6 py-2">Rp. {{ number_format($item->nominal) }}</td>
                 </tr>
-                @php
-                    $grandTotal += $item->nominal;
-                @endphp
+                @php $grandTotal += $item->nominal; @endphp
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="11" class="text-right px-6 py-2"><strong>Grand Total: </strong></td>
-                <td class="px-6 py-2">Rp. {{ number_format($grandTotal) }}</td>
+                <td colspan="11" class="text-end px-6 py-2"><strong>Grand Total:</strong></td>
+                <td class="px-6 py-2"><strong>Rp. {{ number_format($grandTotal) }}</strong></td>
             </tr>
         </tfoot>
     </table>
+
     <div class="date-container">
         Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>

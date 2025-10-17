@@ -51,13 +51,13 @@
                                                 <select name="kategori" id="kategori" class="form-control" required>
                                                     <option value="">-- Pilih Kategori --</option>
                                                     <option value="Dalam Kota"
-                                                        {{ $item->kategori == 'Dalam Kota' ? 'selected' : '' }}>Dalam Kota
+                                                        {{ old('kategori') == 'Dalam Kota' ? 'selected' : '' }}>Dalam Kota
                                                     </option>
                                                     <option value="Luar Kota"
-                                                        {{ $item->kategori == 'Luar Kota' ? 'selected' : '' }}>Luar Kota
+                                                        {{ old('kategori') == 'Luar Kota' ? 'selected' : '' }}>Luar Kota
                                                     </option>
                                                     <option value="Luar Pulau"
-                                                        {{ $item->kategori == 'Luar Pulau' ? 'selected' : '' }}>Luar Pulau
+                                                        {{ old('kategori') == 'Luar Pulau' ? 'selected' : '' }}>Luar Pulau
                                                     </option>
                                                 </select>
                                             </div>
